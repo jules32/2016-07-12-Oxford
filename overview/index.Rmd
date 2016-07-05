@@ -1,0 +1,70 @@
+---
+title: "Workshop Overview"
+author: "Julie Stewart Lowndes, twitter: @juliesquid, github: @jules32"
+date: "July 12, 2016"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(htmltools)
+```
+
+What we'll learn...
+
+- exposure and confidence. Expectations (google shit!! look for help shit!). 
+- we'll talk about how to THINK about data. Tidy data.
+- messy spreadsheet/cut/paste
+- interactive visualization
+- setup: wanting to break up multivariates, visualize.
+- setup: wanting to track your own memory
+- setup: wanting to collaborate with others, with yourself from other computers. (RStudio server). Take advantage of existing infrastructure. 
+- intro to gapminder data set--and relevance to conservation. imagine multivariables in ecology. you've got the time variable. field sites? temperature? but also translational. 
+- the power of R and friends. Communication throughout the whole process
+
+
+Here's an overview of techniques to be covered in Hadley Wickham and Garrett Grolemund of RStudio's forthcoming book [R for Data Science](http://r4ds.had.co.nz/):
+
+`r img(src='img/r4ds_data-science.png', width=500)`
+
+Today, we'll briefly skim across these topics, except for **Model**:
+
+- **Import**: `readr` to read in simple text files (as comma-seperated values, ie CSV)
+- **Tidy**: `tidyr` to organize rows of data into unique values
+- **Transform**: `dplyr` to manipulate/wrangle data based on subsetting by rows or columns, sorting and joining
+- **Visualise**: 
+    - `ggplot2` static plots, using grammar of graphics principles
+    - `plotly` interactive plots, having hover, zoom and pan capabilities
+    - `tmaps` thematic maps, both static and interactive
+- **Communicate**
+    - online website with _Github Pages_
+    - version with _git_
+    - dynamic documents with _Rmarkdown_
+    
+
+- how course will run
+- stickynotes, keyboard shortcuts, questions, etc.
+
+exercises!!
+
+# We'll be using the Gapminder data: 
+
+Inspiring people:
+
+- [**Hadley Wickham**](http://hadley.nz): grammar of graphics
+
+    `r img(src='https://avatars1.githubusercontent.com/u/4196', width=200)`
+
+- [**Hans Rosling**](https://www.ted.com/speakers/hans_rosling): Gapminder
+
+    ![](img/hans-rosling_sexy-stats.jpeg)
+
+    [Gapminder World](http://www.gapminder.org/world) - Wealth & Health of Nations
+
+    [![](img/gapminder-world_motion-chart.png)](http://www.gapminder.org/world)
+
+
