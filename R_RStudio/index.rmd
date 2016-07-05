@@ -1,0 +1,738 @@
+---
+title: "Introduction to R and RStudio"
+author: "Julie Lowndes"
+date: "April 15, 2016"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+Here is an analogy to start us off. **If you were a pilot, R is an an airplane.** You can use R to go places! With practice you'll gain skills and confidence; you can fly further distances and get through tricky situations. You will become an awesome pilot and can fly your plane anywhere. 
+
+And **if R were an airplane, RStudio is the airport**. RStudio provides support! Runways, communication and other services, and just makes your overall life easier. So although you can fly your plane without an airport and we could learn R without RStudio, that's not what we're going to do. 
+
+> We are learning R together with RStudio and its many supporting features. 
+
+Something else to start us off is to mention that you are learning a new language here. It's an ongoing process, it takes time, you'll make mistakes, it can be frustrating, but it will be overwhelmingly awesome in the long run. We all speak at least one language; it's a similar process, really. And no matter how fluent you are, you'll always be learning, you'll be trying things in new contexts, etc, just like everybody else. And just like any form of communication, there will be miscommunications but hands down we are all better off because of it. 
+
+OK, let's get going.
+
+--------
+
+To learn R and RStudio we will be using Dr. Jenny Bryan's lectures from STAT545 at UBC. I have modifed them slightly here for our purposes; to see them in their full and awesome entirety, visit [stat545-ubc.github.io](https://stat545-ubc.github.io/). Specifically, we'll be using these lectures: 
+
+- [R basics, workspace and working directory, RStudio projects](http://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html)
+- [Basic care and feeding of data in R](http://stat545-ubc.github.io/block006_care-feeding-data.html)
+
+Something we won't cover today but that will be helpful to you in the future is:
+
+- [The many flavors of R objects](http://stat545-ubc.github.io/block004_basic-r-objects.html)
+
+I've modified them in part with my own text and in part with text from Software Carpentry's [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder/), specifically: 
+
+- [Seeking help](http://swcarpentry.github.io/r-novice-gapminder/03-seeking-help.html)
+
+
+# R basics, workspace and working directory, RStudio projects
+*(modified from Jenny Bryan's [STAT545](http://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html))*
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+## R at the command line, RStudio goodies
+
+Launch RStudio/R.
+
+Notice the default panes:
+
+  * Console (entire left)
+  * Environment/History (tabbed in upper right)
+  * Files/Plots/Packages/Help (tabbed in lower right)
+
+FYI: you can change the default location of the panes, among many other things: [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio). 
+
+There are other great features we don't really have time for today as we walk through the IDE together. (IDE stands for integrated development environment.) Check out the [webinar](https://www.rstudio.com/resources/webinars/) and [RStudio IDE cheatsheet](https://www.rstudio.com/resources/cheatsheets/) for more. (And this is my blog post about [RStudio Awesomeness](http://jules32.github.io/resources/RStudio_intro/)).
+
+Go into the Console, where we interact with the live R process.
+
+Make an assignment and then inspect the object you just created.
+
+```{r}
+x <- 3 * 4
+x
+```
+In my head I hear, e.g., "x gets 12".
+
+All R statements where you create objects -- "assignments" -- have this form: `objectName <- value`.  
+
+I'll write it in the command line with a hashtag `#`, which is the way R comments so it won't be evaluated. 
+```{r eval = FALSE}
+# objectName <- value
+```
+
+Object names cannot start with a digit and cannot contain certain other characters such as a comma or a space. You will be wise to adopt a [convention for demarcating words](http://en.wikipedia.org/wiki/Snake_case) in names.
+
+```{r}
+# i_use_snake_case
+# other.people.use.periods
+# evenOthersUseCamelCase
+```
+
+Make an assignment
+```{r}
+this_is_a_really_long_name <- 2.5
+```
+
+To inspect this variable, instead of typing it, we can press the up arrow key and call your command history, with the most recent commands first. Let's do that, and then delete the assignment: 
+
+```{r}
+this_is_a_really_long_name
+```
+
+Another way to inspect this variable is to begin typing `this_`...and RStudio will automagically have suggested completions for you that you can select by hitting the tab key, then press return. 
+
+Make another assignment
+```{r}
+this_is_shorter <- 2 ^ 3
+```
+
+To inspect this, try out RStudio's completion facility: type the first few characters, press TAB, add characters until you disambiguate, then press return.
+```{r}
+this_is_shorter
+```
+
+One more:
+```{r}
+jenny_rocks <- 2
+```
+
+Let's try to inspect:
+```{r}
+jennyrocks
+```
+
+Implicit contract with the computer / scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Get better at typing.
+
+Remember that this is a language, not unsimilar to English! There are times you aren't understood -- your friend might say 'what?' but R will say 'error'. 
+
+A moment about logical operators and expressions. We can ask questions about the objects we just made. 
+
+- `==` means 'is equal to'
+- `!=` means 'is not equal to'
+- `<` means ` is less than'
+- `>` means ` is greater than'
+- `<=` means ` is less than or equal to'
+- `>=` means ` is greater than or equal to'
+```{r}
+jenny_rocks == 2
+jenny_rocks <= 30
+jenny_rocks != 5
+```
+
+> Shortcuts
+You will make lots of assignments and the operator `<-` is a pain to type. Don't be lazy and use `=`, although it would work, because it will just sow confusion later. Instead, utilize **RStudio's keyboard shortcut: Alt + - (the minus sign)**.
+Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces.
+RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, Alt+Shift+K brings up a keyboard shortcut reference card.
+
+> My most common shortcuts include command-Z (undo), and combinations of arrow keys in combination with shift/option/command (moving quickly up, down, sideways, with or without highlighting.
+
+## R functions, help pages
+
+R has a mind-blowing collection of built-in functions that are accessed like so
+
+```{r eval = FALSE, tidy = FALSE}
+# functionName(arg1 = val1, arg2 = val2, and so on)
+```
+
+Let's try using `seq()` which makes regular sequences of numbers and, while we're at it, demo more helpful features of RStudio.
+
+Type `se` and hit TAB. A pop up shows you possible completions. Specify `seq()` by typing more to disambiguate or using the up/down arrows to select. Notice the floating tool-tip-type help that pops up, reminding you of a function's arguments. If you want even more help, press F1 as directed to get the full documentation in the help tab of the lower right pane. 
+
+Type the arguments `1, 10` and hit return. 
+```{r}
+seq(1, 10)
+```
+
+We could probably infer that the `seq()` function makes a sequence, but let's learn for sure. Type (and you can autocomplete) and let's explore the help page:
+
+```{r}
+?seq 
+help(seq) # same as ?seq
+seq(from = 1, to = 10) # same as seq(1, 10); R assumes by position
+seq(from = 1, to = 10, by = 2)
+```
+
+The above also demonstrates something about how R resolves function arguments. You can always specify in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want a sequence `from = 1` that goes `to = 10`. Since we didn't specify step size, the default value of `by` in the function definition is used, which ends up being 1 in this case. For functions I call often, I might use this resolve by position for the first
+argument or maybe the first two. After that, I always use `name = value`.
+
+
+The help page tells the name of the package in the top left, and broken down into sections:
+
+ - Description: An extended description of what the function does.
+ - Usage: The arguments of the function and their default values.
+ - Arguments: An explanation of the data each argument is expecting.
+ - Details: Any important details to be aware of.
+ - Value: The data the function returns.
+ - See Also: Any related functions you might find useful.
+ - Examples: Some examples for how to use the function.
+
+The examples can be copy-pasted into the console for you to understand what's going on. Let's try it. 
+
+> Exercise: Talk to your neighbor(s) and look up the help file for a function you know. Try the examples, see if you learn anything new. (need ideas?`?getwd()`, `?plot()`).
+
+
+Help for when you only sort of remember the function name: double-questionmark:
+```{r}
+??install 
+```
+
+
+Not all functions have (or require) arguments:
+```{r}
+date()
+```
+
+Now look at your workspace -- in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:
+
+```{r}
+objects()
+ls()
+```
+
+If you want to remove the object named `y`, you can do this
+
+```{r}
+rm(y)
+```
+
+To remove everything:
+
+```{r}
+rm(list = ls())
+```
+
+or click the broom in RStudio's Environment pane.
+
+> Exercise: Clear your workspace, then create a few new variables. Discuss what makes a good filename. Hint: give variables short informative names (`lifeExp` versus "X5")
+
+## Working directories, RStudio projects, R scripts 
+
+One day you will need to quit R, go do something else and return to your analysis later.
+
+One day you will have multiple analyses going that use R and you want to keep them separate.
+
+One day you will want to collaborate with colleagues/friends--need a portable way to do this. 
+
+So, what about your analysis do you want to capture (what is 'real'), and where should it 'live'?   
+
+The Console is good for quick tests, but you really want to work in saved R scripts as "real". Huge benefits: 
+
+- with the input data and the R code you used, you can reproduce _everything_. 
+- you can make your analysis fancier. 
+- you can get to the bottom of puzzling results and discover and fix bugs in your code. 
+- you can reuse the code to conduct similar analyses in new projects. 
+- you can remake a figure with different aspect ratio or save is as TIFF instead of PDF. 
+- you are ready for the future.
+
+So we will talk about scripts in a moment, but first let's talk about where they should live. 
+
+*We're not going to cover workspaces today, but this is another alternative to scripts. You can learn about it in this RStudio article: [Working Directories and Workspaces](https://support.rstudio.com/hc/en-us/articles/200711843-Working-Directories-and-Workspaces).*
+
+
+### Working directory
+
+Any process running on your computer has a notion of its "working directory". In R, this is where R will look, by default, for files you ask it to load. It also where, by default, any files you write to disk will go. 
+
+You can explicitly check your working directory with:
+```{r}
+getwd()
+```
+It is also displayed at the top of the RStudio console.
+
+As a beginning R user, it's OK let your home directory or any other weird directory on your computer be R's working directory. _Very soon_, I urge you to evolve to the next level, where you organize your analytical projects into directories and, when working on Project A, set R's working directory to Project A's directory.
+
+__Although I do not recommend it__, in case you're curious, you can set R's working directory at the command line like so. You could also do this in a script.
+
+```{r eval = FALSE}
+setwd("~/myCoolProject")
+```
+
+
+But there's a better way. A way that also puts you on the path to managing your R work like an expert.
+
+### RStudio projects
+
+Keeping all the files associated with a project organized together -- input data, R scripts, analytical results, figures -- is such a wise and common practice that RStudio has built-in support for this via its _projects_.
+
+[Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
+
+Let's make one to use for the rest of this workshop/class. 
+
+> Do this: File > New Project ... New Directory > Empty Project. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience).
+
+I created a directory and, therefore RStudio project, called `swc` in my `github` directory, FYI.
+What do you notice about your RStudio pane? Look in the right corner--'software-carpentry'.
+
+Now check that the "home" directory for your project is the working directory of our current R process:
+
+```{r eval=FALSE}
+getwd()
+# "/Users/julialowndes/tmp/software-carpentry" 
+```
+_I can't print my output here because this document itself does not reside in the RStudio Project we just created._
+
+This is the absolute path, just like we learned in the shell this morning. But from here, your paths within this project can be relative, and so our files within our project could work on your computer or mine, without worrying about the absolute paths.
+
+Let's enter a few commands in the Console, as if we are just beginning a project. Since we're learning a new language here, an example is often the best way to see how things work. So we're going to make an introductory plot using the `cars` dataset that is loaded into R.
+```{r eval=FALSE}
+cars
+```
+
+```{r toy-line}
+plot(cars)  
+z <- line(cars)
+abline(coef(z), col = "purple")
+dev.print(pdf, "toy_line_plot.pdf")
+```
+
+## Our first script!
+
+Let's say this is a good start of an analysis and your ready to start preserving the logic and code. Visit the History tab of the upper right pane. Select these commands. Click "To Source". Now you have a new pane containing a nascent R script. Click on the floppy disk to save. Give it a name ending in `.R` or `.r`, I used `toy-line.r` and note that, by default, it will go in the directory associated with your project. It is traditional to save R scripts with a `.R` or `.r` suffix. 
+
+A few things: 
+
+  * Let's comment our script: Comments start with one or more `#` symbols. Use them. RStudio helps you (de)comment selected lines with Ctrl+Shift+C (windows and linux) or Command+Shift+C (mac).
+
+  * Walk through line by line by keyboard shortcut (command + enter) or mouse (click Run in the upper right corner of editor pane).
+  
+  * Source the entire document -- equivalent to entering `source('toy-line.r')` in the Console -- by keyboard shortcut (shift command S) or mouse (click Source in the upper right corner of editor pane or select from the mini-menu accessible from the associated down triangle).
+  
+```{r toy-line-commented, eval=FALSE}
+## toy-line.r
+## J Lowndes lowndes@nceas.uscb.edu
+
+## plots R's cars data with a fitted line ----
+plot(cars)  
+z <- line(cars)
+abline(coef(z), col = "purple")
+
+## save as .pdf
+dev.print(pdf, "toy_line_plot.pdf")
+```
+Notice that the notation with `----` in a comment also enables us to 'jump' to it in RStudio
+
+This workflow will serve you well in the future:
+
+  * Create an RStudio project for an analytical project
+  * Keep inputs there (we'll soon talk about importing)
+  * Keep scripts there; edit them, run them in bits or as a whole from there
+  * Keep outputs there (like the PDF written above)
+
+Avoid using the mouse for pieces of your analytical workflow, such as loading a dataset or saving a figure. Terribly important for reproducility and for making it possible to retrospectively determine how a numerical table or PDF was actually produced (searching on local disk on filename, among `.R` files, will lead to the relevant script).
+
+```{r include = FALSE}
+file.remove(c("toy_line_plot.pdf"))
+```
+
+> To do before coffee: create a folder called `data` in your RStudio project folder and copy `gapminder-FiveYearData.csv` there. On my computer this is `~/tmp/software-carpentry/data/gapminder-FiveYearData.csv` 
+
+# Basic care and feeding of data in R
+*(modified from Jenny Bryan's [STAT545](http://stat545-ubc.github.io/block006_care-feeding-data.html))*
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+Let's start fresh. 
+
+You should clean out your workspace. In RStudio, click on the "Clear" broom icon from the Environment tab or use *Session > Clear Workspace*. You can also enter `rm(list = ls())` in the Console to accomplish same.
+
+Now restart R. In RStudio, use *Session > Restart R*. Otherwise, quit R with `q()` and re-launch it.
+
+Why do we do this? So that the code you write is complete and re-runnable. 
+
+- root out hidden dependencies where one snippet of code only works because it relies on objects created by code saved elsewhere or, much worse, never saved at all. 
+- expose any usage of packages that have not been explicitly loaded. 
+
+Let's check our working directory: `getwd()`
+
+Finally, let's create a new R script from scratch. We will evelop and run our code from there. We'll be using this script today and tomorrow. 
+
+In RStudio, use *File > New File > R Script*. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `software-carpentry-ucsb.r`. 
+
+## Meet your first data.frame: gapminder
+
+We will work with some of the data from the [Gapminder project](http://www.gapminder.org). Jenny Bryan has also released this as an R package, so you could also install it from CRAN and load it into R like so: `install.packages("gapminder"); library(gapminder)`. But here we will use `read.csv` with the file we downloaded before class. 
+```{r}
+## read gapminder csv
+gapminder <- read.csv('data/gapminder-FiveYearData.csv')
+```
+
+Let's inspect: 
+```{r eval=FALSE}
+## explore the gapminder dataset
+gapminder # this is super long! Let's inspect in different ways
+```
+
+Let's use `head` and `tail`: 
+```{r eval=FALSE}
+head(gapminder) # shows first 6
+tail(gapminder) # shows last 6
+
+head(gapminder, 10) # shows first X that you indicate
+tail(gapminder, 12) # guess what this does!
+```
+
+`str()` will provide a sensible description of almost anything: when in doubt, just `str()` some of the recently created objects to get some ideas about what to do next.
+```{r}
+str(gapminder) # ?str - displays the structure of an object
+```
+
+`gapminder` is a `data.frame`. We've got a mixture of character data (Factors) and quantative data (integers and numeric)
+
+We aren't going to get into the other types of data receptacles today ('arrays', 'matrices'), because working with data.frames is what you should primarily use. Why?
+
+- data.frames package related variables neatly together, great for analysis
+- most functions, including the latest and greatest packages actually __require__ that your data be in a data.frame
+- data.frames can hold variables of different flavors such as: 
+  - character data (names) 
+  - quantitative data (specimen weight)
+  - categorical information (male vs. female)
+  
+We can also see the `gapminder` variable in RStudio's Environment pane (top right)
+
+More ways to learn basic info on a data.frame. 
+```{r}
+names(gapminder)
+dim(gapminder)    # ?dim dimension
+ncol(gapminder)   # ?ncol number of columns; same as dim(gapminder)[1]
+nrow(gapminder)   # ?nrow number of rows; same as dim(gapminder)[2]
+```
+
+We can combine using `c()` to reverse-engineer `dim()`! Just a side-note here, but I wanted to introduce you to `c()`: we'll use it later.
+```{r}
+c(nrow(gapminder), ncol(gapminder)) # ?c combines values into a vector or list. 
+```
+
+A statistical overview can be obtained with `summary()`
+```{r}
+summary(gapminder)
+```
+
+What other information would you want to know when first exploring new data? 
+...How about plotting to see if these data make sense/have outliers?
+
+Although we haven't begun our formal coverage of visualization yet, it's so important for smell-testing dataset that we will make a few figures anyway. Here we use only base R graphics, which are very basic.
+```{r first-plots-base-R}
+## plot gapminder
+plot(gapminder$year, gapminder$lifeExp) # ?plot
+plot(gapminder$gdpPercap, gapminder$lifeExp)
+```
+
+### Look at the variables inside a data.frame
+
+To specify a single variable from a data.frame, use the dollar sign `$`. 
+
+Let's explore a numeric variable: life expectancy.
+```{r histogram-lifeExp}
+## explore numeric variable
+summary(gapminder$lifeExp)
+hist(gapminder$lifeExp)
+```
+
+Let's explore a categorical variable (stored as a *factor* in R): continent.
+```{r}
+## explore factor variable
+summary(gapminder$continent)
+levels(gapminder$continent)
+nlevels(gapminder$continent)
+hist(gapminder$continent) # whaaaa!?
+```
+This error is because of what factors are 'under the hood': R is really storing integer codes 1, 2, 3 here, but represent them as text to us. Factors can be problematic to us because of this, but you can learn to navigate with them. There are resources to learn how to [properly care and feed for factors](http://stat545.com/block014_factors.html).
+
+One thing you'll learn is how to visualize factors with which functions/packages.
+```{r tabulate-continent}
+class(gapminder$continent) # ?class returns the class type of the object
+table(gapminder$continent) # ?table builds a table based on factor levels 
+class(table(gapminder$continent)) # this has morphed the factor...
+hist(table(gapminder$continent)) # so we can plot!
+```
+I don't want us to get too bogged down with what's going on with `table()` and plotting factors, but I want to expose you to these situations because you will encounter them. Googling the error messages you get, and knowing how to look for good responses is a critical skill. (I tend to look for responses from stackoverflow.com that are recent and have green checks, and ignore snarky comments). 
+
+> Exercise with your neighbor: Explore `gapminder$gdpPercap`. What kind of data is it? So which commands do you use? 
+
+
+## Isolating bits of data.frames
+
+You will want to isolate bits of your data.frames; maybe you want to just look at Africa or years since 2000. R calls this subsetting. 
+
+There is a stand-alone function called `subset()`, that can isolate pieces of an object for inspection or assignment. `subset()`'s main argument is also (unfortunately) called `subset`. Remember your logical expressions from this morning? We'll use `==` here. 
+```{r}
+## subset gapminder
+subset(gapminder, subset = country == "Uruguay") # Ah, inspecting Uruguay. Self documenting!
+```
+
+Contrast the above command with this one accomplishing the same thing:
+
+```{r}
+gapminder[1621:1632, ] # No idea what we are inspecting. Don't do this.
+```
+
+Yes, these both return the same result. But the second command is horrible for these reasons:
+
+  * It contains [Magic Numbers](http://en.wikipedia.org/wiki/Magic_number_(programming)). The reason for keeping rows 1621 to 1632 will be non-obvious to someone else and that includes __you__ in a couple of weeks.
+  * It is fragile. If the rows of `gapminder` are reordered or if some observations are eliminated, these rows may no longer correspond to the Uruguay data.
+
+In contrast, the first command, using `subset()`, is **self-documenting**; one does not need to be an R expert to take a pretty good guess at what's happening. It's also more robust. It will still produce the correct result even if `gapminder` has undergone some reasonable set of transformations (what if it were in in reverse alphabetical order?)
+
+You can use `subset =` and `select =` together to simultaneously filter rows and columns or variables.
+```{r}
+subset(gapminder, subset = country == "Mexico", 
+       select = c(country, year, lifeExp)) # ?c: combines values into a vector or list
+```
+
+You can also subset more than one condition using `&`, `|`, etc. Let's take a peek at logical operators: `?"&"`
+```{r}
+subset(gapminder, subset = country == c("Mexico", "Uruguay") & year == 2007)
+```
+
+> Exercise: with a partner,  
+1. subset data of interest using at least 2 conditionals.   
+2. assign this to a variable.   
+3. what did you learn?
+```{r exercise-answer, eval=FALSE}
+# one potential exercise answer, no peeking
+gap_sample = subset(gapminder, subset = country == c("France", "Brazil") & year >= 2002) 
+head(gap_sample)
+str(gap_sample)
+```
+
+## conditional statements with `if` and `else`
+
+Often when we're coding we want to control the flow of our actions. This can be done
+by setting actions to occur only if a condition or a set of conditions are met.
+Alternatively, we can also set an action to occur a particular number of times.
+
+```{r, eval=FALSE}
+# if
+if (condition is true) {
+  do something
+}
+
+# if ... else
+if (condition is true) {
+  do something
+} else {  # that is, if the condition is false,
+  do something different
+}
+```
+
+Say, for example, that we want R to print a message if the variable we just created has a has a particular value.
+```{r}
+# sample a random number from a Poisson distribution
+# with a mean (lambda) of 8
+
+x <- rpois(1, lambda=8)
+
+if (x >= 10) {
+  print("x is greater than or equal to 10")
+}
+
+x
+```
+
+Note you may not get the same output as your neighbour because
+you may be sampling different random numbers from the same distribution.
+
+Let's go a step further:
+```{r}
+x <- rpois(1, lambda=8)
+
+if (x >= 10) {
+  print("x is greater than or equal to 10")
+} else if (x > 5) {
+  print("x is greater than 5")
+} else {
+  print("x is less than 5")
+}
+```
+
+
+**Important:** when R evaluates the condition inside `if` statements, it is
+looking for a logical element, i.e., `TRUE` or `FALSE`. This can cause some
+headaches. For example:
+```{r}
+x  <-  4 == 3
+if (x) {
+  "4 equals 3"
+}
+```
+
+As we can see, the message was not printed because the vector x is `FALSE`
+```{r}
+x <- 4 == 3
+x
+```
+
+> Exercise: Use an `if` statement to print a suitable message
+> reporting whether there are any records from 2002 in the `gapminder` dataset. 
+> Now do the same for 2012.
+
+Did anyone get a warning message like this?
+```{r}
+if (gapminder$year == 2002) {
+  print('this will only check the first element in gapminder$year')
+  }
+```
+
+If your condition evaluates to a vector with more than one logical element,
+the function `if` will still run, but will only evaluate the condition in the first
+element. Remember our analogy about spoken language? This is when R understood your command, but flagging that you may have misspoken. R isn't saying 'what!?' (that's an error message), it's saying 'I understood what you said, but I want to alert you that it might not be what you meant'. These warning messages can be really helpful, but you can't rely that they will catch all misinterpretations.
+
+We'll talk about a good way to do this tomororw, but in case you wanted to just do a quick check to see if 2002 was even in the gapminder data, you could use `any` or `%in%`
+
+```{r}
+if (any(gapminder$year == 2002)) {
+  print('yes 2002 is included at least once in gapminder')
+}
+
+if (2002 %in% gapminder$year) {
+  print('yes 2002 is included at least once in gapminder')
+  }
+```
+
+
+## Repeating operations with for loops
+
+If you want to iterate over a set of values, and perform the
+same operation on each, a `for` loop will do the job.
+We saw `for` loops in the shell lessons earlier. 
+
+The basic structure of a `for` loop is:
+```{r, eval=FALSE}
+for(iterator in set of values){
+  do a thing
+}
+```
+
+For example:
+
+```{r eval = FALSE}
+for(i in 1:10){
+  print(i)
+}
+```
+
+The `1:10` bit creates a vector on the fly; you can iterate
+over any other vector as well.
+
+We can use a `for` loop nested within another `for` loop to iterate over two things at
+once.
+```{r eval = FALSE}
+for (i in 1:5){
+  for(j in c('a', 'b', 'c', 'd', 'e')){
+    print(paste(i,j))
+  }
+}
+```
+
+```{r}
+for (gap_cont in unique(gapminder$continent)){ # gap_cont = 'Africa'
+  temp <-  subset(gapminder, continent == gap_cont) 
+  print(paste('mean life expectency for', gap_cont, 'is', mean(temp$lifeExp)))
+}
+```
+
+Rather than printing the results, we could write the loop output to a new object.
+```{r}
+continent_mean_lifeExp <- c()
+for (gap_cont in unique(gapminder$continent)){  # gap_cont = 'Africa'
+  temp                   <-  subset(gapminder, continent == gap_cont) 
+  temp_output            <-  paste(gap_cont, mean(temp$lifeExp))
+  continent_mean_lifeExp <- c(continent_mean_lifeExp, temp_output)
+}
+continent_mean_lifeExp
+```
+
+This approach can be useful, but 'growing your results' (building
+the result object incrementally) is computationally inefficient, so avoid
+it when you are iterating through a lot of values.
+
+For loops can also lead to temporary variables that you don't need. Tomorrow we will learn about a few packages that will help your data wrangling well beyond for loops!
+
+## clean up and save your .r script
+
+OK, let's clean up and save your `.r` script, we'll be using it again tomorrow! Restart R. This will ensure you don't have any packages loaded from previous calls to `library()`. In RStudio, use *Session > Restart R*. Otherwise, quit R with `q()` and re-launch it.
+
+Run through each line of code again, make sure your comments are good, delete anything you don't need. Your script might look like this: 
+
+```{r eval=FALSE}
+## explore the gapminder dataset ----
+gapminder = read.csv('data/gapminder-FiveYearData.csv')
+str(gapminder) #displays the structure of an object
+head(gapminder) # shows first 6 by default
+tail(gapminder, 12)# shows last X that you indicate, or 6 by default
+names(gapminder)
+dim(gapminder)    # ?dim dimension
+ncol(gapminder)   # ?ncol number of columns
+nrow(gapminder)   # ?nrow number of rows
+length(gapminder) # ?length length; although better for vectors
+summary(gapminder)
+
+## plot gapminder
+plot(lifeExp ~ year, gapminder)
+plot(lifeExp ~ gdpPercap, gapminder)
+
+## explore numeric variable
+head(gapminder$lifeExp)
+summary(gapminder$lifeExp)
+hist(gapminder$lifeExp)
+
+## explore numeric variable that functions like a categorical variable
+head(gapminder$year)
+summary(gapminder$year)
+
+## explore factor variable
+class(gapminder$continent)
+summary(gapminder$continent)
+levels(gapminder$continent)
+nlevels(gapminder$continent)
+barplot(table(gapminder$continent))
+
+## subset gapminder. Self documenting!
+subset(gapminder, subset = country == "Mexico",
+       select = c(country, year, lifeExp)) # ?c: combines values
+
+## practice an if statement
+x <- rpois(1, lambda=8)
+
+if (x >= 10) {
+  print("x is greater than or equal to 10")
+} else if (x > 5) {
+  print("x is greater than 5")
+} else {
+  print("x is less than 5")
+}
+
+## two ways to see if values exist: `any` and `%in%`
+if (any(gapminder$year == 2002)) {
+  print('yes 2002 is included at least once in gapminder')
+}
+if (2002 %in% gapminder$year) {
+  print('yes 2002 is included at least once in gapminder')
+}
+
+## practice a for loop
+continent_mean_lifeExp <- c()
+for (gap_cont in unique(gapminder$continent)){  # gap_cont = 'Africa'
+  temp                   <-  subset(gapminder, continent == gap_cont) 
+  temp_output            <-  paste(gap_cont, mean(temp$lifeExp))
+  continent_mean_lifeExp <- c(continent_mean_lifeExp, temp_output)
+}
+continent_mean_lifeExp
+```
+
