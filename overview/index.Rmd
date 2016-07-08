@@ -6,7 +6,6 @@ output:
   html_document:
     toc: true
     toc_float: true
-    number_sections: true
 ---
 
 ```{r setup, include=FALSE}
@@ -17,36 +16,25 @@ library(htmltools)
 
 > Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information. - [NYTimes (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
 
-
-What we'll learn...
-
-- exposure and confidence. Expectations (google shit!! look for help shit!). 
-- we'll talk about how to THINK about data. Tidy data.
-- messy spreadsheet/cut/paste
-- interactive visualization
-- setup: wanting to break up multivariates, visualize.
-- setup: wanting to track your own memory
-- setup: wanting to collaborate with others, with yourself from other computers. (RStudio server). Take advantage of existing infrastructure. 
-- intro to gapminder data set--and relevance to conservation. imagine multivariables in ecology. you've got the time variable. field sites? temperature? but also translational. 
-- the power of R and friends. Communication throughout the whole process
-- A lot of real-people developers are building great stuff and helping people of all skill-levels learn how to use it. So you'll hear names like Hadley Wickham, Jenny Bryan...
-
-# Schedule
-
-Time | Day 1 | Day 2
-----------|---------------------------------|---------------------------------
-Morning | Intro to R and RStudio | Intro to git and GitHub
-Afternoon | Data wrangling and visualization | Reproducible workflow with GitHub and RMarkdown
-
 # What to expect
+
+This is going to be a fun workshop. The plan is to expose you to a lot of great tools that you can gain confidence using for your research. We're going to go through a lot in these two days and you don't have to remember it all--the main thing to take away is that there *are* good ways to approach your analyses--and you should have confidence in yourself that you can do find them and use them! Googling is a big part of programming. 
+
+We'll be talking about : 
+
+- how to THINK about data. And not just any data; tidy data.
+- how to increase reproducibility in your science
+- how to more easily collaborate with others--including your future self!
+- how the #rstats community is fantastic. The tools we're using are developed by real people. They are building great stuff and helping people of all skill-levels learn how to use it. 
+
+## Tidy data workflow
 
 Here's an overview of techniques to be covered in Hadley Wickham and Garrett Grolemund of RStudio's forthcoming book [R for Data Science](http://r4ds.had.co.nz/):
 
 `r img(src='img/r4ds_data-science.png', width=500)`
 
-Today, we'll briefly skim across these topics, except for **Model**:
+We will be focusing on: 
 
-- **Import**: `readr` to read in simple text files (as comma-seperated values, ie CSV)
 - **Tidy**: `tidyr` to organize rows of data into unique values
 - **Transform**: `dplyr` to manipulate/wrangle data based on subsetting by rows or columns, sorting and joining
 - **Visualise**: 
@@ -58,13 +46,8 @@ Today, we'll briefly skim across these topics, except for **Model**:
     - version with _git_
     - dynamic documents with _Rmarkdown_
     
-
-- how course will run
-- stickynotes, keyboard shortcuts, questions, etc.
-
-exercises!!
-
-# We'll be using the Gapminder data: 
+## Gapminder data: 
+We'll be using the gapminder dataset:
 
 - [**Hans Rosling**](https://www.ted.com/speakers/hans_rosling): Gapminder
 
@@ -75,3 +58,5 @@ exercises!!
     [![](img/gapminder-world_motion-chart.png)](http://www.gapminder.org/world)
 
 This is not conservation/environmental specific, but it is a fantastically rich data set with many parallels to data you may have and questions you may encounter. There is information for many indicators for every country for many years. You may have many measurements collected for many sites across time. What we learn with the gapminder data will be very relevant to you--especially as we look at certain countries (study sites) or years, or multiple indicators. 
+
+By the end of the course you'll wrangle these data, make your own interactive graphic (in R!) that you'll publish on a website you've built! Woop!
