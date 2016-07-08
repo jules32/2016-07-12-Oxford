@@ -3,9 +3,7 @@ title: "Workshop Overview"
 author: "Julie Stewart Lowndes, twitter: @juliesquid, github: @jules32"
 date: "July 12, 2016"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
+  html_document
 ---
 
 ```{r setup, include=FALSE}
