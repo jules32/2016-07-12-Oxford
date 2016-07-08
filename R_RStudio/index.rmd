@@ -17,6 +17,8 @@ And **if R were an airplane, RStudio is the airport**. RStudio provides support!
 
 Something else to start us off is to mention that you are learning a new language here. It's an ongoing process, it takes time, you'll make mistakes, it can be frustrating, but it will be overwhelmingly awesome in the long run. We all speak at least one language; it's a similar process, really. And no matter how fluent you are, you'll always be learning, you'll be trying things in new contexts, etc, just like everybody else. And just like any form of communication, there will be miscommunications but hands down we are all better off because of it. 
 
+While language is a familiar concept, programming languages are in a different context from spoken languages, but you will get to know this context with time. For example: you have a concept that there is a first meal of the day, and there is a name for that: in English it's "breakfast". So if you're learning Spanish, you could expect there is a word for this concept of a first meal. (And you'd be right: 'desayuno'). **We will get you to expect that programming languages also have words (called functions) for concepts as well**. You'll soon expect that there is a way to order values numerically. Or alphabetically. Or search for patterns in text. Or calculate the median. Or reorganize columns to rows. Or subset exactly what you want. We will get you increase your expectations and learn to ask and find what you're looking for.
+
 OK, let's get going.
 
 --------
@@ -94,7 +96,9 @@ this_is_a_really_long_name
 
 Another way to inspect this variable is to begin typing `this_`...and RStudio will automagically have suggested completions for you that you can select by hitting the tab key, then press return. 
 
-Make another assignment
+And another way to inspect this is by looking at the Environment pane in RStudio. 
+
+Now, let's make another assignment
 ```{r}
 this_is_shorter <- 2 ^ 3
 ```
@@ -181,7 +185,7 @@ The help page tells the name of the package in the top left, and broken down int
 
 The examples can be copy-pasted into the console for you to understand what's going on. Let's try it. 
 
-> Exercise: Talk to your neighbor(s) and look up the help file for a function you know. Try the examples, see if you learn anything new. (need ideas?`?getwd()`, `?plot()`).
+> Exercise: Talk to your neighbor(s) and look up the help file for a function you know. Try the examples, see if you learn anything new. (need ideas?`?getwd()`, `?plot()` `?mean()`).
 
 
 Help for when you only sort of remember the function name: double-questionmark:
@@ -202,10 +206,10 @@ objects()
 ls()
 ```
 
-If you want to remove the object named `y`, you can do this
+If you want to remove the object named `x`, you can do this:
 
 ```{r}
-rm(y)
+rm(x)
 ```
 
 To remove everything:
@@ -216,7 +220,7 @@ rm(list = ls())
 
 or click the broom in RStudio's Environment pane.
 
-> Exercise: Clear your workspace, then create a few new variables. Discuss what makes a good filename. Hint: give variables short informative names (`lifeExp` versus "X5")
+> Exercise: Clear your workspace, then create a few new variables. Create a variable that is the mean of a sequence of 1-20. What's a good name for your variable? Does it matter what your 'by' argument is? Why?
 
 ## Working directories, RStudio projects, R scripts 
 
@@ -244,10 +248,10 @@ So we will talk about scripts in a moment, but first let's talk about where they
 
 ### Working directory
 
-Any process running on your computer has a notion of its "working directory". In R, this is where R will look, by default, for files you ask it to load. It also where, by default, any files you write to disk will go. 
+Any process running on your computer has a notion of its "working directory". In R, this is where R will look, by default, for files you ask it to load. It is also where, by default, any files you write to disk will go. You have a sense of this because whenever you go to save a Word doc or download, it asks where. You often have to navigate to put it exactly where you want it. There are a few ways to check your working directory in RStudio.
 
 You can explicitly check your working directory with:
-```{r}
+```{r, eval=FALSE}
 getwd()
 ```
 It is also displayed at the top of the RStudio console.
@@ -265,15 +269,13 @@ But there's a better way. A way that also puts you on the path to managing your 
 
 ### RStudio projects
 
-Keeping all the files associated with a project organized together -- input data, R scripts, analytical results, figures -- is such a wise and common practice that RStudio has built-in support for this via its _projects_.
+Keeping all the files associated with a project organized together -- input data, R scripts, analytical results, figures -- is such a wise and common practice that RStudio has built-in support for this via its _projects_. More here: [Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
 
-[Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
-
-Let's make one to use for the rest of this workshop/class. 
+Let's make one to use for the rest of today. 
 
 > Do this: File > New Project ... New Directory > Empty Project. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience).
 
-I created a directory and, therefore RStudio project, called `swc` in my `github` directory, FYI.
+I created a directory and, therefore RStudio project, called `software-carpentry` in a folder called `tmp` in my home directory, FYI.
 What do you notice about your RStudio pane? Look in the right corner--'software-carpentry'.
 
 Now check that the "home" directory for your project is the working directory of our current R process:
@@ -282,11 +284,10 @@ Now check that the "home" directory for your project is the working directory of
 getwd()
 # "/Users/julialowndes/tmp/software-carpentry" 
 ```
-_I can't print my output here because this document itself does not reside in the RStudio Project we just created._
 
-This is the absolute path, just like we learned in the shell this morning. But from here, your paths within this project can be relative, and so our files within our project could work on your computer or mine, without worrying about the absolute paths.
+This is the absolute path: it starts at the `/Users` root and is specific to my computer (`julialowndes`) and where I saved it. So if I did an analysis with this filepath, it wouldn't work on your computer before you altered the filepath. But with an RStudio project, your paths within this project can be relative, and so our files within our project could work on your computer or mine, without worrying about the absolute paths.
 
-Let's enter a few commands in the Console, as if we are just beginning a project. Since we're learning a new language here, an example is often the best way to see how things work. So we're going to make an introductory plot using the `cars` dataset that is loaded into R.
+Let's enter a few commands in the Console, as if we are just beginning a project. Since we're learning a new language here, an example is often the best way to see how things work. So we're going to make an introductory plot using the `cars` dataset that is loaded into R. We can pretend this is data just given to us by a collaborator and we're trying to see if it's useful for us.
 ```{r eval=FALSE}
 cars
 ```
@@ -297,6 +298,8 @@ z <- line(cars)
 abline(coef(z), col = "purple")
 dev.print(pdf, "toy_line_plot.pdf")
 ```
+
+> Exercise with your neighbor: discuss all of the functions we've just used here (`plot`, `line`, `abline`, `coef`, `dev.print`.) Talk through what is happening. What is the `col` argument? What does `dev.print` do? and where?
 
 ## Our first script!
 
@@ -312,6 +315,7 @@ A few things:
   
 ```{r toy-line-commented, eval=FALSE}
 ## toy-line.r
+## a simple plot of the cars dataset
 ## J Lowndes lowndes@nceas.uscb.edu
 
 ## plots R's cars data with a fitted line ----
@@ -327,15 +331,11 @@ Notice that the notation with `----` in a comment also enables us to 'jump' to i
 This workflow will serve you well in the future:
 
   * Create an RStudio project for an analytical project
-  * Keep inputs there (we'll soon talk about importing)
+  * Keep inputs there (although we just used the base `cars` data -- we'll soon talk about importing)
   * Keep scripts there; edit them, run them in bits or as a whole from there
   * Keep outputs there (like the PDF written above)
 
-Avoid using the mouse for pieces of your analytical workflow, such as loading a dataset or saving a figure. Terribly important for reproducility and for making it possible to retrospectively determine how a numerical table or PDF was actually produced (searching on local disk on filename, among `.R` files, will lead to the relevant script).
-
-```{r include = FALSE}
-file.remove(c("toy_line_plot.pdf"))
-```
+**Avoid using the mouse for pieces of your analytical workflow**, such as loading a dataset or saving a figure. This is terribly important for reproducility and for making it possible to retrospectively determine how a numerical table or PDF was actually produced (searching on local disk on filename, among `.R` files, will lead to the relevant script).
 
 > To do before coffee: create a folder called `data` in your RStudio project folder and copy `gapminder-FiveYearData.csv` there. On my computer this is `~/tmp/software-carpentry/data/gapminder-FiveYearData.csv` 
 
@@ -351,22 +351,26 @@ Let's start fresh.
 
 You should clean out your workspace. In RStudio, click on the "Clear" broom icon from the Environment tab or use *Session > Clear Workspace*. You can also enter `rm(list = ls())` in the Console to accomplish same.
 
-Now restart R. In RStudio, use *Session > Restart R*. Otherwise, quit R with `q()` and re-launch it.
+Now restart R. In RStudio, use *Session > Restart R*. Otherwise, quit R (from the 'File' menu or by typing `q()` in the Console) and re-launch it.
 
 Why do we do this? So that the code you write is complete and re-runnable. 
 
 - root out hidden dependencies where one snippet of code only works because it relies on objects created by code saved elsewhere or, much worse, never saved at all. 
 - expose any usage of packages that have not been explicitly loaded. 
 
-Let's check our working directory: `getwd()`
+Let's check our working directory: 
 
-Finally, let's create a new R script from scratch. We will evelop and run our code from there. We'll be using this script today and tomorrow. 
+```{r}
+getwd()
+```
 
-In RStudio, use *File > New File > R Script*. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `software-carpentry-ucsb.r`. 
+Finally, let's create a new R script from scratch. We will develop and run our code from there. We'll be using this script today and tomorrow. 
+
+In RStudio, use *File > New File > R Script*. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `swc-oxford.r`. 
 
 ## Meet your first data.frame: gapminder
 
-We will work with some of the data from the [Gapminder project](http://www.gapminder.org). Jenny Bryan has also released this as an R package, so you could also install it from CRAN and load it into R like so: `install.packages("gapminder"); library(gapminder)`. But here we will use `read.csv` with the file we downloaded before class. 
+We will work with some of the data from the [Gapminder project](http://www.gapminder.org). But here we will use `read.csv` with the file we downloaded before class. 
 ```{r}
 ## read gapminder csv
 gapminder <- read.csv('data/gapminder-FiveYearData.csv')
@@ -392,16 +396,16 @@ tail(gapminder, 12) # guess what this does!
 str(gapminder) # ?str - displays the structure of an object
 ```
 
-`gapminder` is a `data.frame`. We've got a mixture of character data (Factors) and quantative data (integers and numeric)
+`gapminder` is a `data.frame`. We've got a mixture of character data ('Factors') and quantative data ('int', or integers and 'num', or numeric)
 
 We aren't going to get into the other types of data receptacles today ('arrays', 'matrices'), because working with data.frames is what you should primarily use. Why?
 
 - data.frames package related variables neatly together, great for analysis
 - most functions, including the latest and greatest packages actually __require__ that your data be in a data.frame
-- data.frames can hold variables of different flavors such as: 
-  - character data (names) 
-  - quantitative data (specimen weight)
-  - categorical information (male vs. female)
+- data.frames can hold variables of different flavors such as
+    - character data (names) 
+    - quantitative data (specimen weight)
+    - categorical information (male vs. female)
   
 We can also see the `gapminder` variable in RStudio's Environment pane (top right)
 
@@ -423,19 +427,27 @@ A statistical overview can be obtained with `summary()`
 summary(gapminder)
 ```
 
-What other information would you want to know when first exploring new data? 
-...How about plotting to see if these data make sense/have outliers?
+### Look at the variables inside a data.frame
 
-Although we haven't begun our formal coverage of visualization yet, it's so important for smell-testing dataset that we will make a few figures anyway. Here we use only base R graphics, which are very basic.
+To specify a single variable from a data.frame, use the dollar sign `$`. The `$` operator is a way to extract of replace parts of an object--check out the help menu for `$`. It's a common operator you'll see in R. 
+
+```{r, eval=FALSE}
+gapminder$lifeExp # very long! hard to make sense of...
+head(gapminder$lifeExp) # can do the same tests we tried before
+str(gapminder$lifeExp) # it is a single numeric vector
+summary(gapminder$lifeExp) # same information, just formatted slightly differently
+```
+
+We'll spend tomorrow talking more about visualization, but it's so important for smell-testing dataset that we will make a few figures anyway. Here we use only base R graphics, which are very basic.
 ```{r first-plots-base-R}
 ## plot gapminder
 plot(gapminder$year, gapminder$lifeExp) # ?plot
 plot(gapminder$gdpPercap, gapminder$lifeExp)
 ```
 
-### Look at the variables inside a data.frame
+These plots can tell us some basic things, like minimum `lifeExp` has generally increased over time, or `lifeExp` is largely related to GDP. But there are bit outliers that would be great to investigate, and it might be nice to be able to dive deeper into the data to learn more. 
 
-To specify a single variable from a data.frame, use the dollar sign `$`. 
+So let's build up to that.
 
 Let's explore a numeric variable: life expectancy.
 ```{r histogram-lifeExp}
@@ -465,21 +477,33 @@ I don't want us to get too bogged down with what's going on with `table()` and p
 
 > Exercise with your neighbor: Explore `gapminder$gdpPercap`. What kind of data is it? So which commands do you use? 
 
+## Subsetting data
 
-## Isolating bits of data.frames
+You will want to isolate bits of your data; maybe you want to just look at a single country or a few years. R calls this subsetting. There are several ways to do this. We'll go through a few options in base R so that you're familiar with them, and know how to read them. But then we'll move on to a new, better, intuitive, and game changing way with the `dplyr` package afterwards. 
 
-You will want to isolate bits of your data.frames; maybe you want to just look at Africa or years since 2000. R calls this subsetting. 
+Remember your logical expressions from this morning? We'll use `==` here. 
 
-There is a stand-alone function called `subset()`, that can isolate pieces of an object for inspection or assignment. `subset()`'s main argument is also (unfortunately) called `subset`. Remember your logical expressions from this morning? We'll use `==` here. 
-```{r}
-## subset gapminder
-subset(gapminder, subset = country == "Uruguay") # Ah, inspecting Uruguay. Self documenting!
+### subsetting with base `[rows, columns]` notatation 
+This notation is something you'll see a lot in base R. the brackets `[ ]` allow you to extract parts of an object. Within the brackets, the comma separates rows from columns. So with our notation is saying 'select these rows, and all columns'.
+```{r, eval=FALSE}
+## subset numeric data
+gapminder[gapminder$lifeExp <32, ] # don't forget this comma! 
+
+## subset factors
+gapminder[gapminder$country == "Uruguay", ] # don't forget this comma! 
+```
+
+We could also select which columns to keep using the `c()` function: 
+```{r, eval=FALSE}
+gapminder[gapminder$country == "Uruguay",
+                     c("country", "year", "lifeExp")] # ?c: combines values into a vector or list
 ```
 
 Contrast the above command with this one accomplishing the same thing:
-
 ```{r}
 gapminder[1621:1632, ] # No idea what we are inspecting. Don't do this.
+
+gapminder[1621:1632, c(1, 3, 4)] # Ditto. 
 ```
 
 Yes, these both return the same result. But the second command is horrible for these reasons:
@@ -487,36 +511,154 @@ Yes, these both return the same result. But the second command is horrible for t
   * It contains [Magic Numbers](http://en.wikipedia.org/wiki/Magic_number_(programming)). The reason for keeping rows 1621 to 1632 will be non-obvious to someone else and that includes __you__ in a couple of weeks.
   * It is fragile. If the rows of `gapminder` are reordered or if some observations are eliminated, these rows may no longer correspond to the Uruguay data.
 
-In contrast, the first command, using `subset()`, is **self-documenting**; one does not need to be an R expert to take a pretty good guess at what's happening. It's also more robust. It will still produce the correct result even if `gapminder` has undergone some reasonable set of transformations (what if it were in in reverse alphabetical order?)
+In contrast, the first command, is somewhat **self-documenting**; one does not need to be an R expert to take a pretty good guess at what's happening. It's also more robust. It will still produce the correct result even if `gapminder` has undergone some reasonable set of transformations (what if it were in in reverse alphabetical order?)
 
-You can use `subset =` and `select =` together to simultaneously filter rows and columns or variables.
+### subsetting with base `subset()` function
+But we can improve how we subset by using the base `subset()` function, which can isolate pieces of an object for inspection or assignment. `subset()`'s main argument is also (unfortunately) called `subset`. 
+```{r, eval=FALSE}
+## subset gapminder
+?subset
+subset(gapminder, subset = country == "Mexico") # Ah, inspecting Mexico. Self documenting!
+```
+This returns all the columns. 
+
+But what if you just want a few of the columns? You can also subset the columns you want. You can use `subset =` and `select =` together to simultaneously subset rows and columns or variables.
 ```{r}
 subset(gapminder, subset = country == "Mexico", 
        select = c(country, year, lifeExp)) # ?c: combines values into a vector or list
 ```
 
-You can also subset more than one condition using `&`, `|`, etc. Let's take a peek at logical operators: `?"&"`
+# Intro dplyr here? 
+
+
+## Repeating operations with for loops
+
+Let's say we want to subset a few countries and plot pop through time. We could do it the way above, which would look like the following: 
 ```{r}
-subset(gapminder, subset = country == c("Mexico", "Uruguay") & year == 2007)
+## plot population of some countries
+
+mexico <- subset(gapminder, subset = country == "Mexico")
+plot(mexico$year, mexico$pop)
+dev.print(pdf, "mexico.pdf")
+
+panama <- subset(gapminder, subset = country == "Panama") 
+plot(panama$year, panama$pop)
+dev.print(pdf, "panama.pdf")
+
+ecuador <- subset(gapminder, subset = country == "Ecuador")
+plot(ecuador$year, ecuador$pop)
+dev.print(pdf, "ecuador")
 ```
 
-> Exercise: with a partner,  
-1. subset data of interest using at least 2 conditionals.   
-2. assign this to a variable.   
-3. what did you learn?
-```{r exercise-answer, eval=FALSE}
-# one potential exercise answer, no peeking
-gap_sample = subset(gapminder, subset = country == c("France", "Brazil") & year >= 2002) 
-head(gap_sample)
-str(gap_sample)
+But you can see already it's a lot of text, which means typo-prone and hard to read. Even if you copy-paste each one, there's a lot of copy-paste, and is very typo-prone. Plus, what if you wanted to instead plot lifeExp? You'd have to remember to change it each time...it gets messy quick. And we're just doing it with 3 countries here; what if we wanted to do it to all 142 countries? Eek. 
+
+
+But better with a for loop. This will let us cycle through and do what we want to each thing in turn. If you want to iterate over a set of values, and perform the same operation on each, a `for` loop will do the job.
+
+The basic structure of a `for` loop is:
+```{r, eval=FALSE}
+for(iterator in set of values){
+  do a thing
+}
 ```
+
+Let's paste a line from what we had before, and modify it. 
+```{r}
+for (cntry in country_list) {
+  mexico <- subset(gapminder, subset = country == "Mexico") 
+  # plot
+} 
+```
+
+We can't call it mexico anymore, but we could call it something more general. 
+```{r}
+for (cntry in country_list) {
+  cntry_subset <- subset(gapminder, subset = country == cntry)  
+  print(cntry_subset)
+  # plot
+} 
+```
+
+> Question: what is the variable `cntry_subset` right now, after running the for loop? 
+
+Is this doing what we think it's doing? Let's create the country list and print the results each time to test our progress: 
+```{r, eval=FALSE}
+country_list <- c("Mexico", "Panama", "Ecuador") # identify the thing to loop through
+for (cntry in country_list) {
+  cntry_subset <- subset(gapminder, subset = country == cntry)  
+  print(cntry_subset)
+  # plot
+} 
+```
+
+Excellent. Let's move on with the plot. 
+```{r}
+country_list <- c("Mexico", "Panama", "Ecuador") 
+for (cntry in country_list) {
+  cntry_subset <- subset(gapminder, subset = country == cntry) 
+  plot(cntry_subset$year, cntry_subset$pop)
+  dev.print(pdf, paste0(cntry,".pdf")) # ?paste0() will paste a string
+} 
+```
+
+Great! And it doesn't matter if we just use these three countries or all the countries--let's try it. 
+
+First let's create a figure directory and make sure it saves there since it's going to get out of hand quickly: 
+```{r}
+dir.create('figures') # this will be: software-carpentry/figures
+
+country_list <- unique(gapminder$country) # ?unique() returns the unique values
+for (cntry in country_list) {
+  cntry_subset <- subset(gapminder, subset = country == cntry) 
+  plot(cntry_subset$year, cntry_subset$pop)
+  dev.print(pdf, paste0("figures/", cntry,".pdf")) # don't forget the `/`: it's a path!
+} 
+```
+
+So that took a little longer than just the 3, but still super fast. For loops are sometimes just the thing you need to iterate over many things in your analyses. 
+
+Now let's say we also want to record the mean population of each country. We'd add a line to the for loop, and comment out all the plotting for now: 
+```{r}
+dir.create('figures') # this will be: software-carpentry/figures
+
+country_list <- unique(gapminder$country) 
+for (cntry in country_list) {
+  cntry_subset <- subset(gapminder, subset = country == cntry) 
+  # plot(cntry_subset$year, cntry_subset$pop)
+  # dev.print(pdf, paste0("figures/", cntry,".pdf"))
+  
+  pop_mean <- mean(cntry_subset$pop)
+  print(paste('mean pop for', cntry, 'is', pop_mean))
+} 
+```
+
+We know it worked since it printed correctly. But we didn't capture it: `cntry_subset` is just Zimbabwe. Let's create an object outside the loop and add to it each time. 
+```{r}
+dir.create('figures') # this will be: software-carpentry/figures
+
+country_list <- unique(gapminder$country) # ?unique() returns the unique values
+country_pop_mean <- data.frame()
+
+for (cntry in country_list) {
+  cntry_subset <- subset(gapminder, subset = country == cntry) 
+  # plot(cntry_subset$year, cntry_subset$pop)
+  # dev.print(pdf, paste0("figures/", cntry,".pdf")) 
+  
+  pop_mean <- mean(cntry_subset$pop)
+  # print(paste('mean pop for', cntry, 'is', pop_mean))
+  country_pop_mean <- rbind(country_pop_mean, data.frame(cntry, pop_mean))
+} 
+```
+This approach can be useful, but 'growing your results' (building
+the result object incrementally) is computationally inefficient, so avoid
+it when you are iterating through a lot of values.
+
+For loops can also lead to temporary variables that you don't need. But they can be really useful at times. 
 
 ## conditional statements with `if` and `else`
 
 Often when we're coding we want to control the flow of our actions. This can be done
 by setting actions to occur only if a condition or a set of conditions are met.
-Alternatively, we can also set an action to occur a particular number of times.
-
 ```{r, eval=FALSE}
 # if
 if (condition is true) {
@@ -531,142 +673,61 @@ if (condition is true) {
 }
 ```
 
-Say, for example, that we want R to print a message if the variable we just created has a has a particular value.
+Say, for example, that in addition to saving population figures for all countries, we want to save life expectancy figures for countries in Asia only. 
 ```{r}
-# sample a random number from a Poisson distribution
-# with a mean (lambda) of 8
+dir.create('figures') # this will be: software-carpentry/figures
 
-x <- rpois(1, lambda=8)
-
-if (x >= 10) {
-  print("x is greater than or equal to 10")
-}
-
-x
-```
-
-Note you may not get the same output as your neighbour because
-you may be sampling different random numbers from the same distribution.
-
-Let's go a step further:
-```{r}
-x <- rpois(1, lambda=8)
-
-if (x >= 10) {
-  print("x is greater than or equal to 10")
-} else if (x > 5) {
-  print("x is greater than 5")
-} else {
-  print("x is less than 5")
-}
-```
-
-
-**Important:** when R evaluates the condition inside `if` statements, it is
-looking for a logical element, i.e., `TRUE` or `FALSE`. This can cause some
-headaches. For example:
-```{r}
-x  <-  4 == 3
-if (x) {
-  "4 equals 3"
-}
-```
-
-As we can see, the message was not printed because the vector x is `FALSE`
-```{r}
-x <- 4 == 3
-x
-```
-
-> Exercise: Use an `if` statement to print a suitable message
-> reporting whether there are any records from 2002 in the `gapminder` dataset. 
-> Now do the same for 2012.
-
-Did anyone get a warning message like this?
-```{r}
-if (gapminder$year == 2002) {
-  print('this will only check the first element in gapminder$year')
+country_list <- unique(gapminder$country) # ?unique() returns the unique values
+country_pop_mean <- data.frame()
+for (cntry in country_list) {
+  cntry_subset <- subset(gapminder, subset = country == cntry) 
+  # plot(cntry_subset$year, cntry_subset$pop)
+  # dev.print(pdf, paste0("figures/", cntry,".pdf")) 
+  
+  pop_mean <- mean(cntry_subset$pop)
+  # print(paste('mean pop for', cntry, 'is', pop_mean))
+  country_pop_mean <- rbind(country_pop_mean, data.frame(cntry, pop_mean))
+  
+  ## if Asia, calculate mean(lifeExp)
+  if (unique(cntry_subset$continent) == "Asia") { # read: if (the continent is Asia) {then}
+    plot(cntry_subset$year, cntry_subset$lifeExp) 
+    dev.print(pdf, paste0("figures/", cntry, "_lifeExp.pdf")) # change the filename
   }
+} 
 ```
 
-If your condition evaluates to a vector with more than one logical element,
-the function `if` will still run, but will only evaluate the condition in the first
-element. Remember our analogy about spoken language? This is when R understood your command, but flagging that you may have misspoken. R isn't saying 'what!?' (that's an error message), it's saying 'I understood what you said, but I want to alert you that it might not be what you meant'. These warning messages can be really helpful, but you can't rely that they will catch all misinterpretations.
 
-We'll talk about a good way to do this tomororw, but in case you wanted to just do a quick check to see if 2002 was even in the gapminder data, you could use `any` or `%in%`
-
+And if the country is in Africa, let's plot the mean GDP. 
 ```{r}
-if (any(gapminder$year == 2002)) {
-  print('yes 2002 is included at least once in gapminder')
-}
+dir.create('figures') # this will be: software-carpentry/figures
 
-if (2002 %in% gapminder$year) {
-  print('yes 2002 is included at least once in gapminder')
+country_list <- unique(gapminder$country) # ?unique() returns the unique values
+country_pop_mean <- data.frame()
+for (cntry in country_list) {
+  cntry_subset <- subset(gapminder, subset = country == cntry) 
+  # plot(cntry_subset$year, cntry_subset$pop)
+  # dev.print(pdf, paste0("figures/", cntry,".pdf")) 
+  
+  pop_mean <- mean(cntry_subset$pop)
+  # print(paste('mean pop for', cntry, 'is', pop_mean))
+  country_pop_mean <- rbind(country_pop_mean, data.frame(cntry, pop_mean))
+  
+  ## if Asia, calculate mean(lifeExp)
+  if (unique(cntry_subset$continent) == "Asia") { # read: if (the continent is Asia) {then}
+    plot(cntry_subset$year, cntry_subset$lifeExp) 
+    dev.print(pdf, paste0("figures/", cntry, "_lifeExp.pdf")) 
+  } else if (unique(cntry_subset$continent) == "Africa") {
+    plot(cntry_subset$year, cntry_subset$gdpPercap) 
+    dev.print(pdf, paste0("figures/", cntry, "_gdpPercap.pdf")) # change the filename
   }
+} 
 ```
-
-
-## Repeating operations with for loops
-
-If you want to iterate over a set of values, and perform the
-same operation on each, a `for` loop will do the job.
-We saw `for` loops in the shell lessons earlier. 
-
-The basic structure of a `for` loop is:
-```{r, eval=FALSE}
-for(iterator in set of values){
-  do a thing
-}
-```
-
-For example:
-
-```{r eval = FALSE}
-for(i in 1:10){
-  print(i)
-}
-```
-
-The `1:10` bit creates a vector on the fly; you can iterate
-over any other vector as well.
-
-We can use a `for` loop nested within another `for` loop to iterate over two things at
-once.
-```{r eval = FALSE}
-for (i in 1:5){
-  for(j in c('a', 'b', 'c', 'd', 'e')){
-    print(paste(i,j))
-  }
-}
-```
-
-```{r}
-for (gap_cont in unique(gapminder$continent)){ # gap_cont = 'Africa'
-  temp <-  subset(gapminder, continent == gap_cont) 
-  print(paste('mean life expectency for', gap_cont, 'is', mean(temp$lifeExp)))
-}
-```
-
-Rather than printing the results, we could write the loop output to a new object.
-```{r}
-continent_mean_lifeExp <- c()
-for (gap_cont in unique(gapminder$continent)){  # gap_cont = 'Africa'
-  temp                   <-  subset(gapminder, continent == gap_cont) 
-  temp_output            <-  paste(gap_cont, mean(temp$lifeExp))
-  continent_mean_lifeExp <- c(continent_mean_lifeExp, temp_output)
-}
-continent_mean_lifeExp
-```
-
-This approach can be useful, but 'growing your results' (building
-the result object incrementally) is computationally inefficient, so avoid
-it when you are iterating through a lot of values.
-
-For loops can also lead to temporary variables that you don't need. Tomorrow we will learn about a few packages that will help your data wrangling well beyond for loops!
 
 ## clean up and save your .r script
 
-OK, let's clean up and save your `.r` script, we'll be using it again tomorrow! Restart R. This will ensure you don't have any packages loaded from previous calls to `library()`. In RStudio, use *Session > Restart R*. Otherwise, quit R with `q()` and re-launch it.
+OK, let's clean up and save your `.r` script, we'll be using it again this afternoon! Restart R. This will ensure you don't have any packages loaded from previous calls to `library()`. In RStudio, use *Session > Restart R*. Otherwise, quit R with `q()` and re-launch it.
+
+You can also delete your 'figures' folder so it doesn't take up space. You can always regenerate them with the code if you wanted to!
 
 Run through each line of code again, make sure your comments are good, delete anything you don't need. Your script might look like this: 
 
@@ -707,32 +768,85 @@ barplot(table(gapminder$continent))
 subset(gapminder, subset = country == "Mexico",
        select = c(country, year, lifeExp)) # ?c: combines values
 
-## practice an if statement
-x <- rpois(1, lambda=8)
+## plot gapminder
+plot(gapminder$year, gapminder$lifeExp) # ?plot
+plot(gapminder$gdpPercap, gapminder$lifeExp)
 
-if (x >= 10) {
-  print("x is greater than or equal to 10")
-} else if (x > 5) {
-  print("x is greater than 5")
-} else {
-  print("x is less than 5")
-}
+## explore numeric variable
+summary(gapminder$lifeExp)
+hist(gapminder$lifeExp)
 
-## two ways to see if values exist: `any` and `%in%`
-if (any(gapminder$year == 2002)) {
-  print('yes 2002 is included at least once in gapminder')
-}
-if (2002 %in% gapminder$year) {
-  print('yes 2002 is included at least once in gapminder')
-}
+## explore factor variable
+summary(gapminder$continent)
+levels(gapminder$continent)
+nlevels(gapminder$continent)
+class(gapminder$continent) # ?class returns the class type of the object
+table(gapminder$continent) # ?table builds a table based on factor levels 
+class(table(gapminder$continent)) # this has morphed the factor...
+hist(table(gapminder$continent)) # so we can plot!
 
-## practice a for loop
-continent_mean_lifeExp <- c()
-for (gap_cont in unique(gapminder$continent)){  # gap_cont = 'Africa'
-  temp                   <-  subset(gapminder, continent == gap_cont) 
-  temp_output            <-  paste(gap_cont, mean(temp$lifeExp))
-  continent_mean_lifeExp <- c(continent_mean_lifeExp, temp_output)
-}
-continent_mean_lifeExp
+## subsetting with base `[rows, columns]` notatation 
+uruguay <- gapminder[gapminder$country == "Uruguay", ] # don't forget this comma! 
+uruguay <- gapminder[gapminder$country == "Uruguay",
+                     c("country", "year", "lifeExp")] 
+## don't subset by numeric rows or columns.
+# uruguay2 <- gapminder[1621:1632, ] # No idea what we are inspecting. Don't do this.
+# uruguay2 <- gapminder[1621:1632, c(1, 3, 4)] # Ditto. 
+
+
+## subsetting with base `subset()` function
+mexico <- subset(gapminder, subset = country == "Mexico") # self documenting. returns all columns.
+mexico <- subset(gapminder, subset = country == "Mexico", 
+                 select = c(country, year, lifeExp)) # 'select' just return the columns we identify.
+
+# clunky, error-prone way of plotting multiple countries (for loops are better)
+mexico <- subset(gapminder, subset = country == "Mexico")
+plot(mexico$year, mexico$pop)
+dev.print(pdf, "mexico.pdf")
+
+panama <- subset(gapminder, subset = country == "Panama") 
+plot(panama$year, panama$pop)
+dev.print(pdf, "panama.pdf")
+
+ecuador <- subset(gapminder, subset = country == "Ecuador")
+plot(ecuador$year, ecuador$pop)
+dev.print(pdf, "ecuador")
+
+## For loops and if statements----
+
+## For loop structure
+    # for(iterator in set of values){
+    #   do a thing
+    # }
+## If statement structure
+    # if (condition is true) {
+    #   do something
+    # } else {  # that is, if the condition is false,
+    #   do something different
+    # }
+
+## Our for loop
+dir.create('figures') # this will be: software-carpentry/figures
+
+country_list <- unique(gapminder$country) # list unique country names to plot
+country_pop_mean <- data.frame() # create an empty data frame to store mean values
+for (cntry in country_list) { # loop through cntry in country_list
+  cntry_subset <- subset(gapminder, subset = country == cntry) # subset the cntry 
+  plot(cntry_subset$year, cntry_subset$pop)
+  dev.print(pdf, paste0("figures/", cntry,".pdf"))
+  
+  ## calculate mean and save in growing country_pop_mean variable
+  pop_mean <- mean(cntry_subset$pop)
+  print(paste('mean pop for', cntry, 'is', pop_mean))
+  country_pop_mean <- rbind(country_pop_mean, data.frame(cntry, pop_mean))
+  
+  ## if Asia, do something. if Africa, do something else.
+  if (unique(cntry_subset$continent) == "Asia") { # read: if (the continent is Asia) {then}
+    plot(cntry_subset$year, cntry_subset$lifeExp) 
+    dev.print(pdf, paste0("figures/", cntry, "_lifeExp.pdf")) 
+  } else if (unique(cntry_subset$continent) == "Africa") {
+    plot(cntry_subset$year, cntry_subset$gdpPercap) 
+    dev.print(pdf, paste0("figures/", cntry, "_gdpPercap.pdf")) # change the filename
+  }
+} 
 ```
-
