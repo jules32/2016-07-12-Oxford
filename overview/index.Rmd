@@ -14,6 +14,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(htmltools)
 ```
 
+
+> Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information. - [NYTimes (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
+
+
 What we'll learn...
 
 - exposure and confidence. Expectations (google shit!! look for help shit!). 
@@ -25,7 +29,16 @@ What we'll learn...
 - setup: wanting to collaborate with others, with yourself from other computers. (RStudio server). Take advantage of existing infrastructure. 
 - intro to gapminder data set--and relevance to conservation. imagine multivariables in ecology. you've got the time variable. field sites? temperature? but also translational. 
 - the power of R and friends. Communication throughout the whole process
+- A lot of real-people developers are building great stuff and helping people of all skill-levels learn how to use it. So you'll hear names like Hadley Wickham, Jenny Bryan...
 
+# Schedule
+
+Time | Day 1 | Day 2
+----------|---------------------------------|---------------------------------
+Morning | Intro to R and RStudio | Intro to git and GitHub
+Afternoon | Data wrangling and visualization | Reproducible workflow with GitHub and RMarkdown
+
+# What to expect
 
 Here's an overview of techniques to be covered in Hadley Wickham and Garrett Grolemund of RStudio's forthcoming book [R for Data Science](http://r4ds.had.co.nz/):
 
@@ -53,12 +66,6 @@ exercises!!
 
 # We'll be using the Gapminder data: 
 
-Inspiring people:
-
-- [**Hadley Wickham**](http://hadley.nz): grammar of graphics
-
-    `r img(src='https://avatars1.githubusercontent.com/u/4196', width=200)`
-
 - [**Hans Rosling**](https://www.ted.com/speakers/hans_rosling): Gapminder
 
     ![](img/hans-rosling_sexy-stats.jpeg)
@@ -67,4 +74,4 @@ Inspiring people:
 
     [![](img/gapminder-world_motion-chart.png)](http://www.gapminder.org/world)
 
-
+This is not conservation/environmental specific, but it is a fantastically rich data set with many parallels to data you may have and questions you may encounter. There is information for many indicators for every country for many years. You may have many measurements collected for many sites across time. What we learn with the gapminder data will be very relevant to you--especially as we look at certain countries (study sites) or years, or multiple indicators. 
