@@ -277,10 +277,9 @@ plot(m)
 
 # Push to github.com, explore your webpage
 
-# add your neighbor as a collaborator to your repo
+# Add your neighbor as a collaborator
 
-practice more; make changes to their repo, and to their neighbor's. 
-
+In github.com; we'll walk through this together. Then, practice more; make changes to their repo, and to their neighbor's. 
 
 # Wrapup
 
