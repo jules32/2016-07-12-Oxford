@@ -17,7 +17,7 @@ And **if R were an airplane, RStudio is the airport**. RStudio provides support!
 
 Something else to start us off is to mention that you are learning a new language here. It's an ongoing process, it takes time, you'll make mistakes, it can be frustrating, but it will be overwhelmingly awesome in the long run. We all speak at least one language; it's a similar process, really. And no matter how fluent you are, you'll always be learning, you'll be trying things in new contexts, etc, just like everybody else. And just like any form of communication, there will be miscommunications but hands down we are all better off because of it. 
 
-While language is a familiar concept, programming languages are in a different context from spoken languages, but you will get to know this context with time. For example: you have a concept that there is a first meal of the day, and there is a name for that: in English it's "breakfast". So if you're learning Spanish, you could expect there is a word for this concept of a first meal. (And you'd be right: 'desayuno'). **We will get you to expect that programming languages also have words (called functions) for concepts as well**. You'll soon expect that there is a way to order values numerically. Or alphabetically. Or search for patterns in text. Or calculate the median. Or reorganize columns to rows. Or subset exactly what you want. We will get you increase your expectations and learn to ask and find what you're looking for.
+While language is a familiar concept, programming languages are in a different context from spoken languages, but you will get to know this context with time. For example: you have a concept that there is a first meal of the day, and there is a name for that: in English it's "breakfast". So if you're learning Spanish, you could expect there is a word for this concept of a first meal. (And you'd be right: 'desayuno'). **We will get you to expect that programming languages also have words (called functions in R) for concepts as well**. You'll soon expect that there is a way to order values numerically. Or alphabetically. Or search for patterns in text. Or calculate the median. Or reorganize columns to rows. Or subset exactly what you want. We will get you increase your expectations and learn to ask and find what you're looking for.
 
 OK, let's get going.
 
@@ -42,6 +42,7 @@ I've modified them in part with my own text and in part with text from Software 
 
 ```{r setup, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(error = TRUE)
+library(htmltools)
 ```
 
 ## R at the command line, RStudio goodies
@@ -122,9 +123,11 @@ Implicit contract with the computer / scripting language: Computer will do tedio
 
 Remember that this is a language, not unsimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean. 
 
-And also know that there are errors that can creep in more subtly, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about pants and suspenders. My story makes sense; I won't get any 'pardon's or errors, but my husband (from Yorkshire) may jump in and say 'I think she means trousers and braces'. This would be a warning message. It's nice when they happen! Warning messages don't always happen--like for example if my husband isn't there to clarify. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. So write clean code and check your work as you go to minimize these circumstances!
+`r img(src='img/practicalDev_googleErrorMessage.jpg', width=400)`
 
-A moment about logical operators and expressions. We can ask questions about the objects we just made. 
+And also know that there are errors that can creep in more subtly, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about pants and suspenders. My story makes sense; I won't get any 'pardon's or errors, but my husband (from Yorkshire) may jump in and say 'I think she means trousers and braces'. This would be a warning message. It's nice when they happen! Warning messages don't always happen--like for example if my husband isn't there to clarify. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
+
+A moment about **logical operators and expressions**. We can ask questions about the objects we just made. 
 
 - `==` means 'is equal to'
 - `!=` means 'is not equal to'
@@ -150,7 +153,7 @@ RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en
 R has a mind-blowing collection of built-in functions that are accessed like so
 
 ```{r eval = FALSE, tidy = FALSE}
-# functionName(arg1 = val1, arg2 = val2, and so on)
+# functionName(name_of_argument1 = value1, name_of_argument2 = value2, and so on)
 ```
 
 Let's try using `seq()` which makes regular sequences of numbers and, while we're at it, demo more helpful features of RStudio.
@@ -225,23 +228,6 @@ or click the broom in RStudio's Environment pane.
 
 ## Working directories, RStudio projects, R scripts 
 
-One day you will need to quit R, go do something else and return to your analysis later.
-
-One day you will have multiple analyses going that use R and you want to keep them separate.
-
-One day you will want to collaborate with colleagues/friends--need a portable way to do this. 
-
-So, what about your analysis do you want to capture (what is 'real'), and where should it 'live'?   
-
-The Console is good for quick tests, but you really want to work in saved R scripts as "real". Huge benefits: 
-
-- with the input data and the R code you used, you can reproduce _everything_. 
-- you can make your analysis fancier. 
-- you can get to the bottom of puzzling results and discover and fix bugs in your code. 
-- you can reuse the code to conduct similar analyses in new projects. 
-- you can remake a figure with different aspect ratio or save is as TIFF instead of PDF. 
-- you are ready for the future.
-
 So we will talk about scripts in a moment, but first let's talk about where they should live. 
 
 *We're not going to cover workspaces today, but this is another alternative to scripts. You can learn about it in this RStudio article: [Working Directories and Workspaces](https://support.rstudio.com/hc/en-us/articles/200711843-Working-Directories-and-Workspaces).*
@@ -259,7 +245,7 @@ It is also displayed at the top of the RStudio console.
 
 As a beginning R user, it's OK let your home directory or any other weird directory on your computer be R's working directory. _Very soon_, I urge you to evolve to the next level, where you organize your analytical projects into directories and, when working on Project A, set R's working directory to Project A's directory.
 
-__Although I do not recommend it__, in case you're curious, you can set R's working directory at the command line like so. You could also do this in a script.
+You can set R's working directory at the command line like so. You could also do this in a script.
 
 ```{r eval = FALSE}
 setwd("~/myCoolProject")
@@ -286,14 +272,18 @@ getwd()
 # "/Users/julialowndes/tmp/software-carpentry" 
 ```
 
-This is the absolute path: it starts at the `/Users` root and is specific to my computer (`julialowndes`) and where I saved it. So if I did an analysis with this filepath, it wouldn't work on your computer before you altered the filepath. But with an RStudio project, your paths within this project can be relative, and so our files within our project could work on your computer or mine, without worrying about the absolute paths.
+**About paths**: The above is the absolute path: it starts at the `/Users` root and is specific to my computer (`julialowndes`) and where I saved it. So if I did an analysis with this filepath, it wouldn't work on your computer before you altered the filepath. 
+
+But with an RStudio project, your paths within this project can be relative, which means they *start* in the `software-carpentry` folder, wherever it is. So we can just use filepaths within our project from a relative place, and it can work on your computer or mine, without worrying about the absolute paths. (Analogy: I can give you directions from this building to the pub, since we're all here in this shared space already. I can't give you all directions from your home to this building and then the pub, because you all live in different places. But I can give directions relative to this buliding). 
+
+OK. 
 
 Let's enter a few commands in the Console, as if we are just beginning a project. Since we're learning a new language here, an example is often the best way to see how things work. So we're going to make an introductory plot using the `cars` dataset that is loaded into R. We can pretend this is data just given to us by a collaborator and we're trying to see if it's useful for us.
 ```{r eval=FALSE}
 cars
 ```
 
-```{r toy-line}
+```{r, eval=FALSE}
 plot(cars)  
 z <- line(cars)
 abline(coef(z), col = "purple")
@@ -338,7 +328,7 @@ This workflow will serve you well in the future:
 
 **Avoid using the mouse for pieces of your analytical workflow**, such as loading a dataset or saving a figure. This is terribly important for reproducility and for making it possible to retrospectively determine how a numerical table or PDF was actually produced (searching on local disk on filename, among `.R` files, will lead to the relevant script).
 
-> To do before coffee: create a folder called `data` in your RStudio project folder and copy `gapminder-FiveYearData.csv` there. On my computer this is `~/tmp/software-carpentry/data/gapminder-FiveYearData.csv` 
+> To do before coffee: download the `data` folder from [the course website here](https://github.com/jules32/2016-07-12-Oxford/raw/gh-pages/2016-07-12-Oxford.zip); save it in your RStudio project folder.
 
 # Basic care and feeding of data in R
 *(modified from Jenny Bryan's [STAT545](http://stat545-ubc.github.io/block006_care-feeding-data.html))*
@@ -361,20 +351,21 @@ Why do we do this? So that the code you write is complete and re-runnable.
 
 Let's check our working directory: 
 
-```{r}
+```{r, eval=FALSE}
 getwd()
 ```
 
 Finally, let's create a new R script from scratch. We will develop and run our code from there. We'll be using this script today and tomorrow. 
 
-In RStudio, use *File > New File > R Script*. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `swc-oxford.r`. 
+In RStudio, use *File > New File > R Script*. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `swc-data-wrangling.r`. 
 
 ## Meet your first data.frame: gapminder
 
-We will work with some of the data from the [Gapminder project](http://www.gapminder.org). But here we will use `read.csv` with the file we downloaded before class. 
+We will work with some of the data from the [Gapminder project](http://www.gapminder.org). Have a look at `data/gapminder.csv` by navigating to it in the RStudio file pane and looking at it (RStudio is also a text editor so you can read this file right here). 
+
 ```{r}
 ## read gapminder csv
-gapminder <- read.csv('data/gapminder-FiveYearData.csv')
+gapminder <- read.csv('data/gapminder.csv')
 ```
 
 Let's inspect: 
@@ -397,15 +388,13 @@ tail(gapminder, 12) # guess what this does!
 str(gapminder) # ?str - displays the structure of an object
 ```
 
-`gapminder` is a `data.frame`. We've got a mixture of character data ('Factors') and quantative data ('int', or integers and 'num', or numeric)
-
-We aren't going to get into the other types of data receptacles today ('arrays', 'matrices'), because working with data.frames is what you should primarily use. Why?
+`gapminder` is a `data.frame`. We aren't going to get into the other types of data receptacles today ('arrays', 'matrices'), because working with data.frames is what you should primarily use. Why?
 
 - data.frames package related variables neatly together, great for analysis
 - most functions, including the latest and greatest packages actually __require__ that your data be in a data.frame
 - data.frames can hold variables of different flavors such as
-    - character data (names) 
-    - quantitative data (specimen weight)
+    - character data (country or continent names; "Factors") 
+    - quantitative data (years, population; "Integers (int)" or "Numeric (num)")
     - categorical information (male vs. female)
   
 We can also see the `gapminder` variable in RStudio's Environment pane (top right)
@@ -448,7 +437,7 @@ plot(gapminder$gdpPercap, gapminder$lifeExp)
 
 These plots can tell us some basic things, like minimum `lifeExp` has generally increased over time, or `lifeExp` is largely related to GDP. But there are bit outliers that would be great to investigate, and it might be nice to be able to dive deeper into the data to learn more. 
 
-So let's build up to that.
+So let's build up to that. *(skip the rest of this section if low on time)*
 
 Let's explore a numeric variable: life expectancy.
 ```{r, eval=FALSE}
@@ -485,7 +474,7 @@ You will want to isolate bits of your data; maybe you want to just look at a sin
 Remember your logical expressions from this morning? We'll use `==` here. 
 
 ### subsetting with base `[rows, columns]` notatation 
-This notation is something you'll see a lot in base R. the brackets `[ ]` allow you to extract parts of an object. Within the brackets, the comma separates rows from columns. So with our notation is saying 'select these rows, and all columns'.
+This notation is something you'll see a lot in base R. the brackets `[ ]` allow you to extract parts of an object. Within the brackets, the comma separates rows from columns. 
 ```{r, eval=FALSE}
 ## subset numeric data
 gapminder[gapminder$lifeExp <32, ] # don't forget this comma! 
@@ -493,6 +482,7 @@ gapminder[gapminder$lifeExp <32, ] # don't forget this comma!
 ## subset factors
 gapminder[gapminder$country == "Uruguay", ] # don't forget this comma! 
 ```
+So our notation is saying 'select these rows, and all columns'.
 
 We could also select which columns to keep using the `c()` function: 
 ```{r, eval=FALSE}
@@ -550,7 +540,7 @@ dev.print(pdf, "ecuador")
 But you can see already it's a lot of text, which means typo-prone and hard to read. Even if you copy-paste each one, there's a lot of copy-paste, and is very typo-prone. Plus, what if you wanted to instead plot lifeExp? You'd have to remember to change it each time...it gets messy quick. And we're just doing it with 3 countries here; what if we wanted to do it to all 142 countries? Eek. 
 
 
-But better with a for loop. This will let us cycle through and do what we want to each thing in turn. If you want to iterate over a set of values, and perform the same operation on each, a `for` loop will do the job.
+Better with a for loop. This will let us cycle through and do what we want to each thing in turn. If you want to iterate over a set of values, and perform the same operation on each, a `for` loop will do the job.
 
 The basic structure of a `for` loop is:
 ```{r, eval=FALSE}
@@ -559,20 +549,20 @@ for(iterator in set of values){
 }
 ```
 
-Let's paste a line from what we had before, and modify it. 
+Let's paste from what we had before, and modify it. Also, the `set of values` is the list of countries (`country_list`), and we want to iterate through each country (let's spell it `cntry` so it's distinctive). 
 ```{r, eval=FALSE}
 for (cntry in country_list) {
   mexico <- subset(gapminder, subset = country == "Mexico") 
-  # plot
+  plot(mexico$year, mexico$pop)
 } 
 ```
 
-We can't call it mexico anymore, but we could call it something more general. 
+We can't call it mexico anymore, but we could call it something more general. And let's comment the plot() line out while we build this, and add a print statement to see if it's behaving like we think it is. 
 ```{r, eval=FALSE}
 for (cntry in country_list) {
   cntry_subset <- subset(gapminder, subset = country == cntry)  
+  # plot(mexico$year, mexico$pop)
   print(cntry_subset)
-  # plot
 } 
 ```
 
@@ -583,8 +573,8 @@ Is this doing what we think it's doing? Let's create the country list and print 
 country_list <- c("Mexico", "Panama", "Ecuador") # identify the thing to loop through
 for (cntry in country_list) {
   cntry_subset <- subset(gapminder, subset = country == cntry)  
+  # plot(mexico$year, mexico$pop)
   print(cntry_subset)
-  # plot
 } 
 ```
 
@@ -614,7 +604,7 @@ for (cntry in country_list) {
 
 So that took a little longer than just the 3, but still super fast. For loops are sometimes just the thing you need to iterate over many things in your analyses. 
 
-Now let's say we also want to record the mean population of each country. We'd add a line to the for loop, and comment out all the plotting for now: 
+Now let's say we also want to record the mean population of each country. We'd add a line to the for loop, and comment out all the plotting for now (to save time, you could also just leave it): 
 ```{r, eval=FALSE}
 dir.create('figures') # this will be: software-carpentry/figures
 
@@ -730,7 +720,7 @@ Run through each line of code again, make sure your comments are good, delete an
 
 ```{r eval=FALSE}
 ## explore the gapminder dataset ----
-gapminder = read.csv('data/gapminder-FiveYearData.csv')
+gapminder = read.csv('data/gapminder.csv')
 str(gapminder) #displays the structure of an object
 head(gapminder) # shows first 6 by default
 tail(gapminder, 12)# shows last X that you indicate, or 6 by default
@@ -815,6 +805,7 @@ dev.print(pdf, "ecuador")
     # for(iterator in set of values){
     #   do a thing
     # }
+
 ## If statement structure
     # if (condition is true) {
     #   do something
