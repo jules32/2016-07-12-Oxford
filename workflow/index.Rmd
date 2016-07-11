@@ -26,6 +26,11 @@ library(htmltools)
 6. add their neighbor as a collaborator to their repo
 7. practice more; make changes to their repo, and to their neighbor's. 
 
+*Note:* Today's materials were developed for and borrowing from: 
+
+- Ben Best's Software Carpentry at UCSB [git lesson](http://remi-daigle.github.io/2016-04-15-UCSB/git/) and [Visualization in R lesson](http://remi-daigle.github.io/2016-04-15-UCSB/viz/).
+
+
 # Create repository with gh-pages branch
 
 1. [Create a repository](https://help.github.com/articles/create-a-repo/) called `my-project`. This is just like we did this morning. It's good to create new repos for new projects.
@@ -104,26 +109,11 @@ For on the fly rendering, the [atom](https://atom.io/) text editor is good.
 We're not going to spend more time with Markdown now, but remember: 
 `r img(src='img/practicalDev_changingstuff.jpg', width=300)`
 
-## Sync (Pull, Commit, Push) this README.md 
+# Sync (Pull, Commit, Push) this README.md 
+
+Have a look through the repo on github.com to see the updates you've made, and notice that it renders below the files in the repo. This is a unique trait of README.md (you don't need to push the .html)
 
 # Rmarkdown from RStudio
-
-## Create RStudio Project
-
-Open RStudio and under the menu File -> New Project... -> Existing Directory. Browse to the folder where you previously cloned `my-project`.
-
-`r img(src='img/rstudio_file-new-project-existing-dir.png', width=300)`
-
-You'll notice a couple new files created in the Files pane:
-
-- `.gitignore` stores all the files for git to ignore committing
-- `my-project.Rproj` stores the settings for this project
-
-Open the Github Desktop App, enter a message like "new RStudio project" and click on "Commit and Sync gh-pages". This will update <https://github.com/USER/my-project>.
-
-`r img(src='img/github-app_new-rstudio-proj-commit.png', width=300)`
-
-## Create `index.Rmd` in Rmarkdown
 
 Back in RStudio, let's create a new Rmarkdown file, which allows us to weave markdown text with chunks of R code to be evaluated and output content like tables and plots.
 
@@ -139,15 +129,220 @@ Notice how the markdown is rendered similar to as before + **R code chunks** are
 
 Notice how the code `plot(pressure)` is not shown in the HTML output because of the R code chunk option `echo=FALSE`.
 
-Before we continue exploring Rmarkdown, return to the Github Desktop App, enter a message like "added index" and click on "Commit and Sync gh-pages". This will update <https://github.com/USER/my-project>, and now you can also see your project website with a default `index.html` viewable at <http://USER.github.io/my-project>
+**Before we continue exploring Rmarkdown**, let's sync this the .rmd and .html to github.com. Enter a message like "added index" and click on "Commit and Sync gh-pages". This will update <https://github.com/USER/my-project>, and now you can also see your project website with a default `index.html` viewable at <http://USER.github.io/my-project>
 
-For more on Rmarkdown:
+## Resources
 
-- [rmarkdown-cheatsheet.pdf](../cheatsheets/rmarkdown-cheatsheet.pdf)
+Were you hoping for an RStudio Cheatsheet? Here it is: 
+
+- [rmarkdown-cheatsheet.pdf](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
 - <http://rmarkdown.rstudio.com>
 - [knitr in a knutshell - Karl Broman](http://kbroman.org/knitr_knutshell/)
 
-## Merge Conflicts
+# Visualization in R - brief intro
 
-[merge conflicts](http://r-pkgs.had.co.nz/git.html#git-pull)
+Let's start a new .Rmd file and we'll do this within an R chunk. 
+
+Great resources: 
+
+- [RStudio data visualization cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/12/ggplot2-cheatsheet-2.0.pdf) (screenshots below)
+- [Creating publication quality graphics - Software Carpentry](http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2.html)
+
+![](img/RStudio_cheatsheet_ggplot.png)
+
+## Static plots with `ggplot2`
+
+Let's plot the population of countries in a single year of the gapminder dataset.
+
+```{r, message=F, warning=F, results='hide'}
+## load libraries
+library(dplyr) # you need to have all libraries loaded within the Rmd file
+library(ggplot2) #install.packages('ggplot2')
+library(gapminder)
+
+# get range of available data
+summary(gapminder)
+```
+
+### Scatterplot
+
+```{r, message=F, warning=F}
+# setup dataframe
+g = gapminder %>%
+  filter(year==2007) %>%   # most recent year 
+  mutate(pop_m = pop/1e6)  # population, millions
+
+# plot scatterplot of most recent year 
+s = ggplot(g, aes(x=gdpPercap, y=lifeExp)) +
+  geom_point()
+s
+
+# add aesthetic of size by population
+s = s + 
+  aes(size=pop_m)
+s
+
+# add aesthetic of color by continent
+s = s + 
+  aes(color=continent)
+s
+
+# add title, update axes labels
+s = s + 
+  ggtitle('Health & Wealth of Nations for 2007') +
+  xlab('GDP per capita ($/year)') +
+  ylab('Life expectancy (years)')
+s
+
+# label legend
+s = s + 
+  scale_colour_discrete(name='Continent') +
+  scale_size_continuous(name='Population (M)')
+s
+```
+
+**Your Turn**: Make a similar plot but for `gdpPercap`. Be sure to update the plot's aesthetic, axis label and title accordingly.
+
+### Boxplot
+
+```{r}
+# boxplot by continent
+b = ggplot(g, aes(x=continent, y=lifeExp)) +
+  geom_boxplot()
+b
+
+# match color to continents, like scatterplot
+b = b +
+  aes(fill=continent)
+b
+
+# drop legend, add title, update axes labels
+b = b +
+  theme(legend.position='none') +
+  ggtitle('Life Expectancy by Continent for 2007') +
+  xlab('Continent') +
+  ylab('Life expectancy (years)')
+b
+```
+
+## Interactive: `plotly`
+
+[ggplot2 | plotly](https://plot.ly/ggplot2/)
+
+```{r, eval = FALSE, message=F, warning=F}
+library(plotly) # install.packages('plotly')
+
+# scatterplot (Note: key=country shows up on rollover)
+s = ggplot(g, aes(x=gdpPercap, y=lifeExp, key=country)) +
+  geom_point()
+ggplotly(s) # must comment out or have eval=FALSE to knit
+
+# boxplot
+ggplotly(b) # must comment out or have eval=FALSE to knit
+```
+
+**Your Turn**: Expand the interactive scatterplot to include all the other bells and whistles of the previous plot in one continuous set of code (no in between setting of s).
+
+## Interactive: Motion Plot
+
+The `googleVis` package ports most of the [Google charts](https://developers.google.com/chart/interactive/docs/gallery) functionality.
+
+For every R chunk must set option `results='asis'`, and once before any googleVis plots, set `op <- options(gvis.plot.tag='chart')`.
+
+- [Rmarkdown and googleVis](https://cran.r-project.org/web/packages/googleVis/vignettes/Using_googleVis_with_knitr.html)
+
+- [googleVis examples](https://cran.r-project.org/web/packages/googleVis/vignettes/googleVis_examples.html)
+
+```{r, results='asis', tidy=F}
+suppressPackageStartupMessages({
+  library(googleVis) # install.packages('googleVis')
+})
+op <- options(gvis.plot.tag='chart')
+
+m = gvisMotionChart(
+  gapminder %>%
+    mutate(
+      pop_m = pop / 1e6,
+      log_gdpPercap = log(gdpPercap)), 
+  idvar='country', 
+  timevar='year', 
+  xvar='log_gdpPercap', 
+  yvar='lifeExp', 
+  colorvar='continent',
+  sizevar='pop_m')
+plot(m)
+```
+
+**Your Turn**: Repeat the motion chart with the country having the highest `gdpPercap` filtered out.
+
+# Push to github.com, explore your webpage
+
+# add your neighbor as a collaborator to your repo
+
+practice more; make changes to their repo, and to their neighbor's. 
+
+
+# Wrapup
+
+# If there's time
+
+## Maps 
+
+Thematic maps [**`tmap`**](https://github.com/mtennekes/tmap):
+
+- [tmap in a nutshell](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html)
+- [tmap modes: plot and interactive view](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-modes.html)
+
+### Static
+
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(tmap) # install.packages('tmap')
+
+# load world spatial polygons
+data(World)
+
+# inspect values in World
+World@data %>% tbl_df()
+
+# gapminder countries not in World. skipping for now
+g %>% 
+  anti_join(World@data, by=c('country'='name')) %>% 
+  arrange(desc(pop))
+
+# World countries not in gapminder. skipping for now
+World@data %>% 
+  anti_join(g, by=c('name'='country')) %>% 
+  arrange(desc(pop_est)) %>%
+  select(iso_a3, name, pop_est)
+
+# join gapminder data to World
+World@data = World@data %>%
+  left_join(g, by=c('name'='country'))
+```
+
+```{r}
+# make map
+m = tm_shape(World) +
+    tm_polygons('lifeExp', palette='RdYlGn', id='name', title='Life expectancy (years)', auto.palette.mapping=F) +
+    tm_style_gray() + tm_format_World()
+m
+```
+
+## Interactive
+
+```{r}
+# show interactive map
+tmap_leaflet(m)
+```
+
+
+# References
+
+- [ggplot2-cheatsheet-2.0.pdf](../cheatsheets/ggplot2-cheatsheet-2.0.pdf)
+- [Interactive Plots and Maps - Environmental Informatics](http://ucsb-bren.github.io/env-info/wk06_widgets.html)
+- [Graphs with ggplot2 - Cookbook for R](http://www.cookbook-r.com/Graphs/#graphs-with-ggplot2)
+- [ggplot2 Essentials - STHDA](http://www.sthda.com/english/wiki/ggplot2-essentials)
+- [NEON Working with Geospatial Data](http://neon-workwithdata.github.io/NEON-R-Spatio-Temporal-Data-and-Management-Intro/)
+
+
 
