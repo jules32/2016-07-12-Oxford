@@ -1,0 +1,23 @@
+---
+title: "Reproducible Workflow with GitHub and RMarkdown"
+author: "Julie Lowndes"
+date: "July 12, 2016"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. make a new repo with gh-pages branch, clone it
+2. learn markdown, practice
+3. learn Rmarkdown, practice data wrangling with gapminder data (index.rmd)
+4. introduce ggplot briefly, and interactive graphics
+5. push to github.com; new website!
+6. add their neighbor as a collaborator to their repo
+7. practice more; make changes to their repo, and to their neighbor's. 
