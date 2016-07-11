@@ -27,6 +27,7 @@ We'll be talking about :
 
 ## Tidy data workflow
 
+[**Hadley Wickham**](http://hadley.nz/) has developed a ton of the tools we'll use today. 
 Here's an overview of techniques to be covered in Hadley Wickham and Garrett Grolemund of RStudio's forthcoming book [R for Data Science](http://r4ds.had.co.nz/):
 
 `r img(src='img/r4ds_data-science.png', width=500)`
@@ -49,12 +50,14 @@ We'll be using the gapminder dataset:
 
 - [**Hans Rosling**](https://www.ted.com/speakers/hans_rosling): Gapminder
 
-    ![](img/hans-rosling_sexy-stats.jpeg)
-
     [Gapminder World](http://www.gapminder.org/world) - Wealth & Health of Nations
 
     [![](img/gapminder-world_motion-chart.png)](http://www.gapminder.org/world)
 
 This is not conservation/environmental specific, but it is a fantastically rich data set with many parallels to data you may have and questions you may encounter. There is information for many indicators for every country for many years. You may have many measurements collected for many sites across time. What we learn with the gapminder data will be very relevant to you--especially as we look at certain countries (study sites) or years, or multiple indicators. 
 
-By the end of the course you'll wrangle these data, make your own interactive graphic (in R!) that you'll publish on a website you've built! Woop!
+## By the end of the course...
+
+These teaching materials are nicely displayed online--I made them with GitHub and RMarkdown, which is waht we'll learn to do.
+
+By the end of the course you'll wrangle the gapminder data, make your own interactive graphic (in R!) that you'll publish on a website you've built with GitHub and RMarkdown. Woop!

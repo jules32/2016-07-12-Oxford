@@ -120,7 +120,9 @@ jennyrocks
 
 Implicit contract with the computer / scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Get better at typing.
 
-Remember that this is a language, not unsimilar to English! There are times you aren't understood -- your friend might say 'what?' but R will say 'error'. 
+Remember that this is a language, not unsimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean. 
+
+And also know that there are errors that can creep in more subtly, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about pants and suspenders. My story makes sense; I won't get any 'pardon's or errors, but my husband (from Yorkshire) may jump in and say 'I think she means trousers and braces'. This would be a warning message. It's nice when they happen! Warning messages don't always happen--like for example if my husband isn't there to clarify. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. So write clean code and check your work as you go to minimize these circumstances!
 
 A moment about logical operators and expressions. We can ask questions about the objects we just made. 
 
