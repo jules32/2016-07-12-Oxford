@@ -1,18 +1,22 @@
 ---
-title: "Reproducible Workflow with GitHub and RMarkdown"
+title: "Reproducible, collaborative workflow with Github and R Markdown"
 author: "Julie Lowndes"
-date: "July 12, 2016"
+date: "July 13, 2016"
 output: 
   html_document:
     toc: true
     toc_float: true
     number_sections: true
-    code_folding: show
+    #code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(htmltools)
 ```
+
+# Objectives
+
 
 1. make a new repo with gh-pages branch, clone it
 2. learn markdown, practice
@@ -21,3 +25,129 @@ knitr::opts_chunk$set(echo = TRUE)
 5. push to github.com; new website!
 6. add their neighbor as a collaborator to their repo
 7. practice more; make changes to their repo, and to their neighbor's. 
+
+# Create repository with gh-pages branch
+
+1. [Create a repository](https://help.github.com/articles/create-a-repo/) called `my-project`. This is just like we did this morning. It's good to create new repos for new projects.
+
+    `r img(src='img/github_repo-create.png', width=200)`
+    
+    Please be sure to tick the box to **Initialize this repository with a README**. Otherwise defaults are fine.
+    
+    `r img(src='img/github_create-my-project.png', width=600)`
+
+1. [Create a branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/) called `gh-pages`.
+
+    `r img(src='img/github_create-branch_gh-pages.png', width=200)`
+    
+    This morning we were able to view our rendered .html pages online with rawgit. But a `gh-pages` branch lets you have a clean url, which will be `http://USER.github.io/REPO` (see more info at [pages.github.com](https://pages.github.com) and [User, Organization, and Project Pages - Github Help](https://help.github.com/articles/user-organization-and-project-pages/)).
+    
+1. [Set the default branch](https://help.github.com/articles/setting-the-default-branch/) to `gh-pages`, NOT the default `master`.
+
+    `r img(src='img/github_default-branch_gh-pages.png', width=600)`
+    
+1. [Delete the branch](https://help.github.com/articles/viewing-branches-in-your-repository/#deleting-branches) `master`, which will not be used.
+
+# Clone the repo to your computer
+
+Do this with RStudio if it's working for you, or with the GitHub Desktop App. 
+
+# Intro to Markdown
+
+Let's learn markdown by editing the `README.md` on our local computer. A README.md file can be added to every folder in a repository, and they are automatically displayed when the repository is opened on github.com  
+
+The `README.md` is in **markdown**, simple syntax for conversion to HTML. `.md` is a kind of text file, so you only need a text editor to read it. You can do this right in RStudio, which has a built-in text editor. (You could also do it in another text editor program, but RStudio is convenient). Copy-paste the following into your `README.md`: 
+  
+```
+# my-project
+
+Playing with [Software Carpentry at Oxford](http://jule32.github.io/2016-07-12-Oxford).
+
+## Introduction
+
+This repository demonstrates **software** and _formats_:
+
+1. **Git**
+1. **Github**
+1. _Markdown_
+1. _Rmarkdown_
+
+## Conclusion
+
+![](https://octodex.github.com/images/labtocat.png)
+```
+    
+Now click on the Preview button to see the markdown rendered as HTML.
+
+![](img/rendered_markdown.png)
+    
+Notice the syntax for:
+
+- **numbered list** gets automatically sequenced: `1.`, `1.`
+- **headers** get rendered at multiple levels: `#`, `##`
+- **link**: `[](http://...)`
+- **image**: `![](http://...)`
+- _italics_: `_word_` 
+- **bold**: `**word**`
+
+There are some good [cheatsheets](https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet) to get you started, and here is one built into RStudio:
+<br />
+<br />
+
+![](img/md_cheatsheet.png)
+<br />
+<br />
+
+See [Mastering Markdown · GitHub Guides](https://guides.github.com/features/mastering-markdown/) and add some more personalized content to the README of your own, like a bulleted list or blockquote.
+For on the fly rendering, the [atom](https://atom.io/) text editor is good.
+
+We're not going to spend more time with Markdown now, but remember: 
+`r img(src='img/practicalDev_changingstuff.jpg', width=300)`
+
+## Sync (Pull, Commit, Push) this README.md 
+
+# Rmarkdown from RStudio
+
+## Create RStudio Project
+
+Open RStudio and under the menu File -> New Project... -> Existing Directory. Browse to the folder where you previously cloned `my-project`.
+
+`r img(src='img/rstudio_file-new-project-existing-dir.png', width=300)`
+
+You'll notice a couple new files created in the Files pane:
+
+- `.gitignore` stores all the files for git to ignore committing
+- `my-project.Rproj` stores the settings for this project
+
+Open the Github Desktop App, enter a message like "new RStudio project" and click on "Commit and Sync gh-pages". This will update <https://github.com/USER/my-project>.
+
+`r img(src='img/github-app_new-rstudio-proj-commit.png', width=300)`
+
+## Create `index.Rmd` in Rmarkdown
+
+Back in RStudio, let's create a new Rmarkdown file, which allows us to weave markdown text with chunks of R code to be evaluated and output content like tables and plots.
+
+File -> New File -> Rmarkdown... -> Document of output format HTML, OK.
+
+`r img(src='img/rstudio_new-rmd-doc-html.png', width=300)`
+
+You can give it a Title of "My Project". After you click OK, most importantly File -> Save as `index` (which will get named with the filename extension `index.Rmd`).
+
+Some initial text is already provided for you. Let's go ahead and "Knit HTML".
+
+Notice how the markdown is rendered similar to as before + **R code chunks** are surrounded by 3 backticks and `{r LABEL}`. These are evaluated and return the output text in the case of `summary(cars)` and the output plot in the case of `plot(pressure)`.
+
+Notice how the code `plot(pressure)` is not shown in the HTML output because of the R code chunk option `echo=FALSE`.
+
+Before we continue exploring Rmarkdown, return to the Github Desktop App, enter a message like "added index" and click on "Commit and Sync gh-pages". This will update <https://github.com/USER/my-project>, and now you can also see your project website with a default `index.html` viewable at <http://USER.github.io/my-project>
+
+For more on Rmarkdown:
+
+- [rmarkdown-cheatsheet.pdf](../cheatsheets/rmarkdown-cheatsheet.pdf)
+- <http://rmarkdown.rstudio.com>
+- [knitr in a knutshell - Karl Broman](http://kbroman.org/knitr_knutshell/)
+
+## Merge Conflicts
+
+[merge conflicts](http://r-pkgs.had.co.nz/git.html#git-pull)
+
