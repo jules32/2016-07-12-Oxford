@@ -146,7 +146,7 @@ Notice how the README.md file we created is automatically displayed at the botto
 
 **From here, you will work locally (on your computer).**
 
-## Clone your repository using RStudio
+# Clone your repository using RStudio
 
 We'll start of by cloning to our local computer using RStudio. Then we'll also show how to do this in the Desktop App because it's good to know there are other approaches, and sometimes it can take some extra steps to get RStudio working nicely with git. If you have problems, we'll help you out using  HappyGitWithR's sections on [Detect Git from RStudio](http://happygitwithr.com/rstudio-see-git.html) and [RStudio, Git, GitHub Hell (troubleshooting)](http://happygitwithr.com/troubleshooting.html). But you can follow along this morning with the Desktop App. 
 
@@ -318,6 +318,6 @@ You can click on the commits to see how the files changed from the previous comm
 <br />
 <br />
 
-## Clone your repository using GitHub Desktop
+# Clone your repository using GitHub Desktop
 
 Now we'll show you how to do this using the GitHub Desktop App and we'll repeat the process. 
