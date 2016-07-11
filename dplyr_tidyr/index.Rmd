@@ -12,27 +12,26 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(htmltools)
 ```
 
-# Tidy Data
+# Tidy Data Overview
 
-Hadley Wickham, RStudio's Chief Scientist, has been building R packages for data wrangling and visualization based on the idea of **tidy data**. Tidy data has a simple convention: put variables in the columns and observations in the rows.
+Hadley Wickham, RStudio's Chief Scientist, has been building R packages for data wrangling and visualization based on the idea of **tidy data**. Great resources include RStudio's [data wrangling cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)  (screenshots below are from this cheatsheet) and [data wrangling webinar](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/). 
+
+Tidy data has a simple convention: put variables in the columns and observations in the rows.
 
 ![](img/tidy_data.png)
-
-Our `gapminder` dataset is pretty tidy.  
- 
-We're going to continue wrangling this tidy data set, and then practice tidying untidy data. 
-
+</br>
+</br>
+Our `gapminder` dataset is pretty tidy. This enables you to work with it the way you'd want, for your analyses, plots, etc. 
+</br>
+</br>
 ![](img/tidy_img.png) 
 
-## Wrangling tidy data
-
-We're going to continue in the transform part of the cycle, and then come back to tidying messy data once we've had some fun wrangling. 
+Right now we are going to use `dplyr` to wrangle this tidyish data set (the transform part of the cycle), and then come back to tidying messy data using `tidyr` once we've had some fun wrangling. 
 
 ![](img/r4ds_data-science.png)
-
-Today we're going to work with two packages by Hadley Wickham called `dplyr` and `tidyr` and how it will help you with simple data exploration, and how you can use it in combination with the `%>%` operator for more complex wrangling (including a lot of the things you would use `for` loops for). Great resources include RStudio's [data wrangling cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) and [data wrangling webinar](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/). 
 
 ## setup
 
@@ -44,9 +43,8 @@ We'll do this in a new R script in the `software-carpentry` folder we created th
 1. Make sure you're in your `software-carpentry` repo (and if not, get there)
 1. New File > R Script
 1. Save as `gapminder-wrangle.r`
-1. Our workflow together will be to write some description of our analysis in Markdown for humans to read, and we will write all of our R code in the 'chunks'. Get ready for the awesomeness, here we go...
 
-Today's materials are again borrowing from some excellent sources, including
+Today's materials are again borrowing from some excellent sources, including:
 
 - Jenny Bryan's lectures from STAT545 at UBC: [Introduction to dplyr](http://stat545.com/block009_dplyr-intro.html)
 - Hadley Wickham and Garrett Grolemund's [R for Data Science](http://r4ds.had.co.nz/)
@@ -55,13 +53,19 @@ Today's materials are again borrowing from some excellent sources, including
 
 # `dplyr` overview
 
-There are five dplyr functions that you will use to do the vast majority of data manipulations:
+There are five `dplyr` functions that you will use to do the vast majority of data manipulations:
 
-- reorder the rows (`arrange()`),
-- pick observations by their values (`filter()`),
-- pick variables by their names (`select()`),
-- create new variables with functions of existing variables (`mutate()`), or
-- collapse many values down to a single summary (`summarise()`).
+- **pick observations by their values (`filter()`)**,
+    - `r img(src='img/rstudio-cheatsheet-filter.png', width=300)` 
+- **pick variables by their names (`select()`)**,
+    - `r img(src='img/rstudio-cheatsheet-select.png', width=300)`
+- **create new variables with functions of existing variables (`mutate()`)**, 
+    - `r img(src='img/rstudio-cheatsheet-mutate.png', width=300)`
+- **collapse many values down to a single summary (`summarise()`)**,
+    - `r img(src='img/rstudio-cheatsheet-summarise.png', width=300)`
+- **reorder the rows (`arrange()`)**
+
+
 
 These can all be used in conjunction with `group_by()` which changes the scope of each function from operating on the entire dataset to operating on it group-by-group. These six functions provide the verbs for a language of data manipulation.
 
@@ -102,7 +106,9 @@ library(gapminder) # this is the package name
 str(gapminder) # there's still a data frame named 'gapminder'
 ```
 
-`filter()` takes logical expressions and returns the rows for which all are `TRUE`. Visually, we are doing this (thanks RStudio for your [cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)): 
+`filter()` takes logical expressions and returns the rows for which all are `TRUE`. 
+
+Visually, we are doing this (thanks RStudio for your [cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)): 
 
 ![](img/rstudio-cheatsheet-filter.png)
 
@@ -126,7 +132,7 @@ Here's what it looks like: `%>%`. The RStudio keyboard shortcut: Ctrl + Shift + 
 
 Let's demo then I'll explain:
 ```{r eval=FALSE}
-gapminder %>% head
+gapminder %>% head()
 ```
 
 This is equivalent to `head(gapminder)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
@@ -144,7 +150,9 @@ You are probably not impressed yet, but the magic will soon happen.
 
 Back to `dplyr` ...
 
-Use `select()` to subset the data on variables or columns. Visually, we are doing this (thanks RStudio for your [cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)): 
+Use `select()` to subset the data on variables or columns. 
+
+Visually, we are doing this (thanks RStudio for your [cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)): 
 
 ![](img/rstudio-cheatsheet-select.png)
 
@@ -201,7 +209,7 @@ gapminder %>%
   mutate(gdp = pop * gdpPercap)
 ```
 
-> Exercise: mutate the gdp column in our Cambodia example above.
+> Exercise: add this new gdp column to our Cambodia example above.
 
 ```{r eval=FALSE}
 # Solution (no peeking!)
@@ -245,7 +253,8 @@ gapminder %>%
   ungroup() # if you use group_by, also use ungroup() to save heartache later
 ```
 
-So we have done a pretty incredible amount of work in a few lines. Our whole analysis is this. Imagine the possibilities from here. It's very readable: you see the data as the first thing, it's not nested. Then, you can read the verbs.
+So we have done a pretty incredible amount of work in a few lines. Our whole analysis is this. Imagine the possibilities from here. It's very readable: you see the data as the first thing, it's not nested. Then, you can read the verbs. This is the whole thing: 
+
 ```{r eval=FALSE}
 library(dplyr)
 library(gapminder)
@@ -257,6 +266,8 @@ gapminder %>%
   summarize(mean_gdp = mean(gdp)) %>%
   ungroup() # if you use group_by, also use ungroup() to save heartache later
 ```
+
+(In base-R, this would be a nightmare to read, and you would also have to make many temporary variables since you couldn't use the %>% operator. Have a look at this blog to get an idea: [How dplyr replaced my most common R idioms](http://www.statsblogs.com/2014/02/10/how-dplyr-replaced-my-most-common-r-idioms/)).
 
 > Exercise: with your neighbor, find the maximum life expectancy for countries in Asia. What is the earliest year you enounter? The latest? Hint: you can use or `base::max` and `dplyr::arrange()`...
 
@@ -274,11 +285,12 @@ gapminder %>%
 
 Often, data must be reshaped for it to become tidy data. What does that mean? There are four main verbs we'll use, which are essentially pairs of opposites:
 
-- turn rows into columns (`spread()`),
 - turn columns into rows (`gather()`),
+- turn rows into columns (`spread()`),
 - turn a character column into multiple columns (`separate()`),
 - turn multiple character columns into a single column (`unite()`)
 
+![](img/rstudio-cheatsheet-spread-gather-sep-unite.png)
 
 You use `spread()` and `gather()` to transform or reshape data between 'wide' to 'long' formats. 'long' format is the tidy data we are after, where:
 
@@ -286,8 +298,6 @@ You use `spread()` and `gather()` to transform or reshape data between 'wide' to
  - each row is an observation
 
 In the 'long' format, you usually have 1 column for the observed variable and the other columns are ID variables.
-
-![](img/rstudio-cheatsheet-spread-gather.png)
 
 For the 'wide' format each row is often a site/subject/patient and you have multiple observation variables containing the same type of data. These can be either repeated observations over time, or observation of multiple variables (or a mix of both). Data input may be simpler or some other applications may prefer the 'wide' format. However, many of `R`'s functions have been designed assuming you have 'long' format data. 
 
@@ -312,17 +322,11 @@ First install and load `tidyr`:
 library("tidyr") # warning messages are OK
 ```
 
-Let's have a look again at the structure of the gapminder data we've been working with. 
-```{r, eval=FALSE}
-head(gapminder)
-str(gapminder)
-```
-
 ## From wide to long format with `gather()`
 
-![](img/rstudio-cheatsheet-reshaping-data-gather.png)
+`r img(src='img/rstudio-cheatsheet-reshaping-data-gather.png', width=500)` 
 
-But for practice, now let's work with these data in a wider format, maybe the way you or your colleague entered it in a spreadsheet. We'll work with it to get it back to the way we like it.
+We've been working with pretty tidy data. So for practice, now let's work with these data in a wider format, maybe the way you or your colleague entered it in a spreadsheet. We'll work with it to get it back to the way we like it.
 ```{r}
 gap_wide <- read.csv('data/gapminder_wide.csv')
 ```
@@ -336,7 +340,7 @@ While wide format is nice for data entry, it's not nice for calculations. What i
 > Question: let's talk this through together. If we're trying to turn the `gap_wide` format into `gapminder` format, what structure does it have that we like? And that we want to change?
 
 - We like the continent and country columns. We won't want to change those. 
-- For long format, we'd want just 1 column identifying the variable name (`tidyr` calls this a **'key'**), and 1 column for the data (`tidyr` calls this the '**value'**.
+- For long format, we'd want just 1 column identifying the variable name (`tidyr` calls this a **'key'**), and 1 column for the data (`tidyr` calls this the '**value'**).
 - For intermediate format, we'd want 3 columns for `gdpPercap`, `lifeExp`, and `pop`.
 - We would like year as a separate column. 
 
@@ -362,15 +366,9 @@ str(gap_long)
 head(gap_long)
 tail(gap_long)
 ```
-note: you could also write this without the %>%: 
-```{r, eval=FALSE}
-gap_long <- gather(data  = gap_wide, 
-                   key   = obstype_year,
-                   value = obs_values)
-```
-So this has reshaped our dataframe, but really not how we wanted it to. Very important to check. 
+So this has reshaped our dataframe, but really not how we wanted. Very important to check, and listen to that warning message--dropping attributes seems very suspicious. Like suspenders.
 
-Notice that it didn't know that we wanted to keep `continent` and `country` untouched; we need to give it more information about which columns we want reshaped. We can do this in several ways.
+What went wrong? Notice that it didn't know that we wanted to keep `continent` and `country` untouched; we need to give it more information about which columns we want reshaped. We can do this in several ways.
 
 One way: identify the column numbers you want to use. Not ideal because column numbers could change, but it does exactly what we want! And illustrates it nicely.
 ```{r, eval=FALSE}
@@ -408,7 +406,7 @@ tail(gap_long)
 ```
 To recap: 
 
-Inside `gather()` we first name the new column for the new ID variable (`obstype_year`), the name for the new amalgamated observation variable (`obs_value`), then the names of the old observation variable. We could have typed out all the observation variables, but as in the `select()` function (see `dplyr` lesson), we can use the `starts_with()` argument to select all variables that starts with the desired character sring. Gather also allows the alternative syntax of using the `-` symbol to identify which variables are not to be gathered (i.e. ID variables)
+Inside `gather()` we first name the new column for the new ID variable (`obstype_year`), the name for the new amalgamated observation variable (`obs_value`), then the names of the old observation variable. We could have typed out all the observation variables, but as in the `select()` function (see `dplyr` lesson), we can use the `starts_with()` argument to select all variables that starts with the desired character string. Gather also allows the alternative syntax of using the `-` symbol to identify which variables are not to be gathered (i.e. ID variables)
 
 OK, but we're not done yet. `obstype_year` actually contains 2 pieces of information, the observation type (`pop`,`lifeExp`, or `gdpPercap`) and the `year`. We can use the `separate()` function to split the character strings into multiple variables
 
@@ -431,7 +429,7 @@ Excellent. This is long format: every row is a unique observation. Yay!
 
 > Exercise: Using `gap_long`, calculate the mean life expectancy, population, and gdpPercap for each continent. **Hint:** use the `group_by()` and `summarize()` functions we learned in the `dplyr` lesson
 
-```{r}
+```{r, eval=FALSE}
 # solution (no peeking!)
 gap_long %>% 
   group_by(continent, obs_type) %>%
@@ -639,6 +637,10 @@ gap_wide_new <- gap_long %>%
   spread(key = var_names, value = obs_values)
 str(gap_wide_new)
 ```
+
+## Other tidyr awesomeness 
+
+- `complete()`
 
 ------
 
