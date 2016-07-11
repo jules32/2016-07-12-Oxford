@@ -357,7 +357,7 @@ getwd()
 
 Finally, let's create a new R script from scratch. We will develop and run our code from there. We'll be using this script today and tomorrow. 
 
-In RStudio, use *File > New File > R Script*. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `swc-data-wrangling.r`. 
+In RStudio, use *File > New File > R Script*. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `swc-data-explore.r`. 
 
 ## Meet your first data.frame: gapminder
 
