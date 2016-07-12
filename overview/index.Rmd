@@ -39,7 +39,6 @@ We will be focusing on:
 - **Visualise**: 
     - `ggplot2` static plots, using grammar of graphics principles
     - `plotly` interactive plots, having hover, zoom and pan capabilities
-    - `tmaps` thematic maps, both static and interactive
 - **Communicate**
     - online website with _Github Pages_
     - version with _git_
@@ -58,6 +57,6 @@ This is not conservation/environmental specific, but it is a fantastically rich 
 
 ## By the end of the course...
 
-These teaching materials are nicely displayed online--I made them with GitHub and RMarkdown, which is waht we'll learn to do.
+These teaching materials are nicely displayed online--I made them with GitHub and RMarkdown, which is what we'll learn to do.
 
 By the end of the course you'll wrangle the gapminder data, make your own interactive graphic (in R!) that you'll publish on a website you've built with GitHub and RMarkdown. Woop!
