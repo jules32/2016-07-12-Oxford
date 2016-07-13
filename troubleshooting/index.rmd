@@ -1,0 +1,25 @@
+---
+title: "Troubleshooting notes"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## To push a existing R Project to GitHub
+
+Google:  'How to push existing RStudio project to github'?
+
+http://jeromyanglim.tumblr.com/post/63159223332/how-to-push-existing-git-rstudio-repository-to
+
+
+##  rpostback-askpass error
+
+Google: Rpostback askpass error
+
+http://ohi-science.org/manual/#rpostback-askpass-error
+
+or:
+
+https://github.com/OHI-Science/ohicore/issues/104
