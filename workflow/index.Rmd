@@ -59,9 +59,9 @@ Do this with RStudio if it's working for you, or with the GitHub Desktop App.
 
 # Intro to Markdown
 
-Let's learn markdown by editing the `README.md` on our local computer. A README.md file can be added to every folder in a repository, and they are automatically displayed when the repository is opened on github.com  
+Let's learn markdown by editing the `README.md` on github.com for convenience. A README.md file can be added to every folder in a repository, and they are automatically displayed when the repository is opened on github.com  
 
-The `README.md` is in **markdown**, simple syntax for conversion to HTML. `.md` is a kind of text file, so you only need a text editor to read it. You can do this right in RStudio, which has a built-in text editor. (You could also do it in another text editor program, but RStudio is convenient). Copy-paste the following into your `README.md`: 
+The `README.md` is in **markdown**, simple syntax for conversion to HTML. `.md` is a kind of text file, so you only need a text editor to read it. If you were editing this on your computer, you could do this right in RStudio, which has a built-in text editor. (You could also do it in another text editor program, but RStudio is convenient). Copy-paste the following into your `README.md`: 
   
 ```
 # my-project
@@ -83,8 +83,6 @@ This repository demonstrates **software** and _formats_:
 ```
     
 Now click on the Preview button to see the markdown rendered as HTML.
-
-![](img/rendered_markdown.png)
     
 Notice the syntax for:
 
@@ -106,12 +104,9 @@ There are some good [cheatsheets](https://github.com/adam-p/markdown-here/wiki/M
 See [Mastering Markdown · GitHub Guides](https://guides.github.com/features/mastering-markdown/) and add some more personalized content to the README of your own, like a bulleted list or blockquote.
 For on the fly rendering, the [atom](https://atom.io/) text editor is good.
 
-We're not going to spend more time with Markdown now, but remember: 
-`r img(src='img/practicalDev_changingstuff.jpg', width=300)`
+# Commit this README.md 
 
-# Sync (Pull, Commit, Push) this README.md 
-
-Have a look through the repo on github.com to see the updates you've made, and notice that it renders below the files in the repo. This is a unique trait of README.md (you don't need to push the .html)
+Have a look through the repo on github.com to see the updates you've made, and notice that it renders below the files in the repo. This is a unique trait of README.md
 
 # Rmarkdown from RStudio
 
