@@ -25,6 +25,14 @@ We'll be talking about :
 - how to more easily collaborate with others--including your future self!
 - how the #rstats community is fantastic. The tools we're using are developed by real people. They are building great stuff and helping people of all skill-levels learn how to use it. 
 
+# Workshop materials 
+
+- [Workshop Overview](http://jules32.github.io/2016-07-12-Oxford/overview/)
+- [Intro to R and RStudio](http://jules32.github.io/2016-07-12-Oxford/R_RStudio/) 
+- [Data Wrangling in R](http://jules32.github.io/2016-07-12-Oxford/dplyr_tidyr/) 
+- [Version Control with Git and GitHub](http://jules32.github.io/2016-07-12-Oxford/git/)
+- [Reproducible, collaborative workflow with Github and R Markdown](http://jules32.github.io/2016-07-12-Oxford/workflow/)
+
 ## Tidy data workflow
 
 [**Hadley Wickham**](http://hadley.nz/) has developed a ton of the tools we'll use today. 
