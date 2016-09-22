@@ -27,6 +27,7 @@ We'll be talking about :
 
 # Workshop materials 
 
+- [Course Website](http://jules32.github.io/2016-07-12-Oxford/)
 - [Workshop Overview](http://jules32.github.io/2016-07-12-Oxford/overview/)
 - [Intro to R and RStudio](http://jules32.github.io/2016-07-12-Oxford/R_RStudio/) 
 - [Data Wrangling in R](http://jules32.github.io/2016-07-12-Oxford/dplyr_tidyr/) 
