@@ -1,5 +1,6 @@
 ---
-title: "Workshop Overview"
+title: "Software Carpentry Workshop at Oxford University"
+subtitle: "Workshop Overview: Reproducible Science with RStudio and GitHub" 
 author: "Julie Stewart Lowndes, twitter: @juliesquid, github: @jules32"
 date: "July 12, 2016"
 output: 
